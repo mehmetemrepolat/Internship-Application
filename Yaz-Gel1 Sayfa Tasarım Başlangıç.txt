@@ -1,0 +1,127 @@
+	Öğrenci Giriş Sayfası
+-----------------------
+
+		Öğrenci ID: 	-------
+		Öğrenci Şifre:	*******(md5)
+					
+		|Parolamı unuttum| |Giriş Yap|
+
+
+
+
+////////////////////////Öğrenci giriş yapar////////////////////////
+
+
+Öğrenci Profil Sayfası
+-----------------------
+
+Mehmet Emre Polat
+191307024
++90 538 702 61 93
+4. Sınıf
+		
+ // Durum tablosu veritabanında olacak olan Staj_Durum adlı değişkenden takip edilip yorumlanacaktır
+						
+						(Durum Tablosu)
+	S0 ---S0D---> 1. Staj ---S1D---> S1 ---S20---> 2. Staj ---S2D---> IME0 ---IME_B---> IME ---IME_D -----> Bitiş			
+	
+			S0	- Öğrenci herhangi bir staj yapmamıştır. Staj-1 için başvurusu değerlendirme aşamasındadır.
+			S0D	- Öğrenci Staj-1 başvurusu değerlendirme aşamasındadır.
+			S1D	- Öğrenci 1. Stajını yapmıştır. Staj-1 Kabul aşamasına geçmiştir.
+			S1	- Öğrenci 1. Stajını başarıyla tamamlamıştır. 2. Stajını yapmamıştır.
+			S20	- Öğrenci Staj-2 başvurusu değerlendirme aşamasındadır.
+			S2D	- Öğrenci 2. Stajını yapmıştır. Staj-2 Kabul aşamasına geçmiştir.
+			IME0	- Öğrenci 2. Stajını başarıyla tamamlamıştır. IME yapmamıştır.
+			IME_B	- Öğrenci IME için başvurusu kabul aşamasındadır.
+			IME_D	- Öğrenci IME yapmıştır. Kabul aşamasına geçmiştir.
+	
+				
+
+////////////////////////////////////////////////////////////////////////
+
+
+Staj Başvuru Sayfaları 
+
+//Burda en son hangi aşamadaysa ona göre gösterim yapılır.
+//Öğrencinin S1 Durumunda olduğunu varsayalım
+//Bu sayfa tamamen bir form sayfası şeklinde düşünülecektir.
+//Sayfayı print etme mantığıyla ilerlenecektir.
+
+
+		Staj-2 Başvuru Formu
+								Tarih: GetDate()
+
+Teknoloji Fakültesi  //_INPUT_\\ Mühendisliği Bölümü //_INPUT_\\ numaralı öğrencisiyim.
+Kurumunuzda staj yapmamın uygun görülmesi halinde bu formun alttaki kısmını doldurularak
+fakültemiz ilgili bölüm başkanlığına gönderilmesini saygılarımla arz ederim.
+İşyeri uygulaması süresi içerisinde alınan rapor, 
+istirahat vb. belgelerin aslını alınan gün içerisinde bölüm başkanlığına bildireceğimi beyan ve taahhüt ederim.
+
+
+Öğrenci Bilgileri(Otomatik Doldurma Şeklinde Yapılabilir.)
+
+Ad			://_INPUT_\\
+Soyad			://_INPUT_\\
+T.C Kimlik Numarası	://_INPUT_\\		Uyruğu://_INPUT_\\
+Ev Tel/GSM		://_INPUT_\\		E-Posta:Uyruğu://_INPUT_\\
+
+Adres			://_INPUT_\\//_INPUT_\\//_INPUT_\\
+İl: //_INPUT_\\		İlçe: //_INPUT_\\	Posta Kodu: //_INPUT_\\
+
+
+Staj Bilgileri
+
+Staj II
+Başlama Tarihi:	//_INPUT_\\	Bitiş Tarihi: //_INPUT_\\
+İş Günü: //_INPUT_\\		Cumartesi Çalışıyor: O
+
+
+
+Ailemden,  Kendimden veya  Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında
+Sağlık Hizmeti Alıyorum			Evet   O  Hayır   O
+	  
+Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum)
+					Evet   0  Hayır   0 
+
+25 Yaşını Doldurdum	
+					Evet   0  Hayır   0  
+
+
+
+Staj Kurumu Bilgileri... 
+
+....
+...
+..
+
+
+
+					|Formu Kaydet|
+
+// Formu Kaydet butonu sayfayı print etme mantığıyla kaydeder. Bunu direkt  olarak Danışman Hocaya Gönderir.
+// Danışman Hocada formun indirme bağlantısı mevcut olur.
+
+//////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
