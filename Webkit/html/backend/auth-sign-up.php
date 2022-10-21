@@ -85,7 +85,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-white">Sign Up</button>
                                     <p class="mt-3">
-                                       Already have an Account <a href="auth-sign-in.html" class="text-white text-underline">Sign In</a>
+                                       Already have an Account <a href="auth-sign-in.php" class="text-white text-underline">Sign In</a>
                                     </p>
                                  </form>
                               </div>
