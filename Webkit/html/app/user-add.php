@@ -1,4 +1,6 @@
-
+<?php
+include '../vt.php'
+?>
 
 <!doctype html>
 <html lang="en">
@@ -119,7 +121,7 @@
                                                   </a>
                                               </li>
                                               <li class="active">
-                                                  <a href="../app/user-add.html">
+                                                  <a href="user-add.php">
                                                       <i class="las la-minus"></i><span>User Add</span>
                                                   </a>
                                               </li>
@@ -484,7 +486,7 @@
                       </a>
                   </div>
                   <div class="navbar-breadcrumb">
-                      <h5>Dashboard</h5>
+                      <h5>Öğrenci Ekleme</h5>
                   </div>
                   <div class="d-flex align-items-center">
                       <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -723,7 +725,7 @@
                   <div class="card">
                      <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                           <h4 class="card-title">Add New User</h4>
+                           <h4 class="card-title">Yeni Öğrenci Ekle</h4>
                         </div>
                      </div>
                      <div class="card-body">
@@ -738,18 +740,18 @@
                               </div>
                            <div class="img-extension mt-3">
                               <div class="d-inline-block align-items-center">
-                                    <span>Only</span>
+                                    <span>Sadece</span>
                                  <a href="javascript:void();">.jpg</a>
                                  <a href="javascript:void();">.png</a>
                                  <a href="javascript:void();">.jpeg</a>
-                                 <span>allowed</span>
+                                 <span>formatlarına izin vardır</span>
                               </div>
                            </div>
                            </div>
                            <div class="form-group">
-                              <label>User Role:</label>
+                              <label>Kullanıcı Rolü:</label>
                               <select name="type" class="selectpicker form-control" data-style="py-0">
-                                 <option>Select</option>
+                                 <option>Öğrenci</option>
                                  <option>Web Designer</option>
                                  <option>Web Developer</option>
                                  <option>Tester</option>
@@ -781,7 +783,7 @@
                   <div class="card">
                      <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                           <h4 class="card-title">New User Information</h4>
+                           <h4 class="card-title">Öğrenci Bilgileri</h4>
                         </div>
                      </div>
                      <div class="card-body">
@@ -789,67 +791,71 @@
                            <form>
                               <div class="row">
                                  <div class="form-group col-md-6">
-                                    <label for="fname">First Name:</label>
-                                    <input type="text" class="form-control" id="fname" placeholder="First Name">
+                                    <label for="fname">Ad:</label>
+                                    <input type="text" class="form-control" id="fname" placeholder="Ad">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="lname">Last Name:</label>
-                                    <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                                    <label for="lname">Soyad:</label>
+                                    <input type="text" class="form-control" id="lname" placeholder="Soyad">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="add1">Street Address 1:</label>
-                                    <input type="text" class="form-control" id="add1" placeholder="Street Address 1">
+                                    <label for="add1">TC Numarası:</label>
+                                    <input type="text" class="form-control" id="add1" placeholder="TC Numarası">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="add2">Street Address 2:</label>
-                                    <input type="text" class="form-control" id="add2" placeholder="Street Address 2">
+                                    <label for="add2">Telefon Numarası:</label>
+                                    <input type="text" class="form-control" id="add2" placeholder="Telefon Numarası">
                                  </div>
                                  <div class="form-group col-md-12">
-                                    <label for="cname">Company Name:</label>
-                                    <input type="text" class="form-control" id="cname" placeholder="Company Name">
+                                    <label for="cname">Mail Adresi:</label>
+                                    <input type="text" class="form-control" id="cname" placeholder="Mail Adresi">
                                  </div>
                                  <div class="form-group col-sm-12">
-                                    <label>Country:</label>
+                                    <label>Sınıf:</label>
                                     <select name="type" class="selectpicker form-control" data-style="py-0">
-                                       <option>Select Country</option>
-                                       <option>Caneda</option>
-                                       <option>Noida</option>
-                                       <option >USA</option>
-                                       <option>India</option>
-                                       <option>Africa</option>
+                                        <option>1</option>
+                                       <option>2</option>
+                                       <option >3</option>
+                                       <option>4</option>
                                     </select>
                                  </div>
+                                  <div></div>
+                                  <div class="form-group col-md-12">
+                                      <label for="cname">Adres:</label>
+                                      <input type="text" class="form-control" id="cname" placeholder="Adres">
+                                  </div>
+
                                  <div class="form-group col-md-6">
-                                    <label for="mobno">Mobile Number:</label>
-                                    <input type="text" class="form-control" id="mobno" placeholder="Mobile Number">
+                                    <label for="mobno">Şehir:</label>
+                                    <input type="text" class="form-control" id="mobno" placeholder="Şehir">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="altconno">Alternate Contact:</label>
-                                    <input type="text" class="form-control" id="altconno" placeholder="Alternate Contact">
+                                    <label for="altconno">İlçe:</label>
+                                    <input type="text" class="form-control" id="altconno" placeholder="İlçe">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <label for="email">Posta Kodu:</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Posta Kodu">
                                  </div>
                                  <div class="form-group col-md-6">
-                                    <label for="pno">Pin Code:</label>
-                                    <input type="text" class="form-control" id="pno" placeholder="Pin Code">
+                                    <label for="pno">Vatandaşlık:</label>
+                                    <input type="text" class="form-control" id="pno" placeholder="Vatandaşlık">
                                  </div>
                                  <div class="form-group col-md-12">
-                                    <label for="city">Town/City:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Town/City">
+                                    <label for="city">Danışman Öğretmen:</label>
+                                    <input type="text" class="form-control" id="city" placeholder="Danışman Öğretmen">
                                  </div>
                               </div>
                               <hr>
-                              <h5 class="mb-3">Security</h5>
+                              <h5 class="mb-3">Güvenlik</h5>
                               <div class="row">
                                  <div class="form-group col-md-12">
-                                    <label for="uname">User Name:</label>
-                                    <input type="text" class="form-control" id="uname" placeholder="User Name">
+                                    <label for="uname">Kullanıcı Adı:</label>
+                                    <input type="text" class="form-control" id="uname" placeholder="Mail Adresi Otomatik olarak eklenecek buraya">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="pass">Password:</label>
-                                    <input type="password" class="form-control" id="pass" placeholder="Password">
+                                    <input type="password" class="form-control" id="pass" placeholder="Kullanıcı için otomatik bir şekilde oluşturulup gönderilecek">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="rpass">Repeat Password:</label>
@@ -859,7 +865,7 @@
                               <div class="checkbox">
                                  <label><input class="mr-2" type="checkbox">Enable Two-Factor-Authentication</label>
                               </div>
-                              <button type="submit" class="btn btn-primary">Add New User</button>
+                              <button type="submit" class="btn btn-primary">Kullanıcı Ekle</button>
                            </form>
                         </div>
                      </div>
