@@ -10,6 +10,10 @@ if($baglanti->connect_error)
     echo $baglanti->connect_error." hatası oluştu";
     exit;
 }
+else
+{
+    echo 'Bağlandı';
+}
 
 //türkçe karakter sorunu olmasın diye karakter setini ayarlıyoruz
 $baglanti->set_charset("utf8");

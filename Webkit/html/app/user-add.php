@@ -792,58 +792,53 @@ include '../vt.php'
                               <div class="row">
                                  <div class="form-group col-md-6">
                                     <label for="fname">Ad:</label>
-                                    <input type="text" class="form-control" id="fname" placeholder="Ad">
+                                    <input type="text" class="form-control" id="fname" name="first_name" placeholder="Ad">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="lname">Soyad:</label>
-                                    <input type="text" class="form-control" id="lname" placeholder="Soyad">
+                                    <input type="text" class="form-control" id="lname" name="last_name" placeholder="Soyad">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="add1">TC Numarası:</label>
-                                    <input type="text" class="form-control" id="add1" placeholder="TC Numarası">
+                                    <input type="text" class="form-control" id="add1" name="tc_no" placeholder="TC Numarası">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="add2">Telefon Numarası:</label>
-                                    <input type="text" class="form-control" id="add2" placeholder="Telefon Numarası">
+                                    <input type="text" class="form-control" id="add2" name="tel_no" placeholder="Telefon Numarası">
                                  </div>
                                  <div class="form-group col-md-12">
                                     <label for="cname">Mail Adresi:</label>
-                                    <input type="text" class="form-control" id="cname" placeholder="Mail Adresi">
+                                    <input type="text" class="form-control" id="cname" name="mail_adress" placeholder="Mail Adresi">
                                  </div>
-                                 <div class="form-group col-sm-12">
-                                    <label>Sınıf:</label>
-                                    <select name="type" class="selectpicker form-control" data-style="py-0">
-                                        <option>1</option>
-                                       <option>2</option>
-                                       <option >3</option>
-                                       <option>4</option>
-                                    </select>
-                                 </div>
+                                  <div class="form-group col-md-12">
+                                      <label for="cname">Sınıf:</label>
+                                      <input type="text" class="form-control" name="class_no" id="cname" placeholder="Sınıfı">
+                                  </div>
                                   <div></div>
                                   <div class="form-group col-md-12">
                                       <label for="cname">Adres:</label>
-                                      <input type="text" class="form-control" id="cname" placeholder="Adres">
+                                      <input type="text" class="form-control" id="cname" name="student_adress" placeholder="Adres">
                                   </div>
 
                                  <div class="form-group col-md-6">
                                     <label for="mobno">Şehir:</label>
-                                    <input type="text" class="form-control" id="mobno" placeholder="Şehir">
+                                    <input type="text" class="form-control" id="mobno" name="city_name" placeholder="Şehir">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="altconno">İlçe:</label>
-                                    <input type="text" class="form-control" id="altconno" placeholder="İlçe">
+                                    <input type="text" class="form-control" id="altconno" name="town_name" placeholder="İlçe">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="email">Posta Kodu:</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Posta Kodu">
+                                    <input type="email" class="form-control" id="zip_cod" name="zip_code" placeholder="Posta Kodu">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="pno">Vatandaşlık:</label>
-                                    <input type="text" class="form-control" id="pno" placeholder="Vatandaşlık">
+                                    <input type="text" class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
                                  </div>
                                  <div class="form-group col-md-12">
                                     <label for="city">Danışman Öğretmen:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Danışman Öğretmen">
+                                    <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
                                  </div>
                               </div>
                               <hr>
@@ -865,6 +860,28 @@ include '../vt.php'
                               <div class="checkbox">
                                  <label><input class="mr-2" type="checkbox">Enable Two-Factor-Authentication</label>
                               </div>
+
+
+                               <?php
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                               //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
+                               if ($_POST) {
+                                   include("../vt.php");
+                                   $baglanti->query("INSERT INTO ogrenciler (ogrenci_id, danisman_id, bolum_id, o_adi, o_soyadi, o_mail, o_tel_no, o_sinif, durum_id, o_foto, o_pass)
+                                     VALUES ('$txtogrencino','$txtdanismanid', '$txtbol', '$txtadi', '$txtsoyadi', '$txtmail', '$txttelno', '$txtsinif', '1', 'a', '$txtpassx')");
+
+
+                               }
+
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               ?>
+
+
+
                               <button type="submit" class="btn btn-primary">Kullanıcı Ekle</button>
                            </form>
                         </div>
