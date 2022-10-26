@@ -836,10 +836,18 @@ include '../vt.php'
                                     <label for="pno">Vatandaşlık:</label>
                                     <input type="text" class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
                                  </div>
-                                 <div class="form-group col-md-12">
+
+                                  <div class="form-group col-md-12">
                                     <label for="city">Danışman Öğretmen:</label>
                                     <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
+
                                  </div>
+
+
+                                  <div class="form-group col-md-12">
+                                      <label for="city">Danışman Öğretmen:</label>
+                                      <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
+                                  </div>
                               </div>
                               <hr>
                               <h5 class="mb-3">Güvenlik</h5>
@@ -875,12 +883,16 @@ include '../vt.php'
 
 
                                }
-
                                //////////////////////////////////////////////////////////////////////////////////////////////////////
                                //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               
                                ?>
 
+                               <div class="form-group col-md-12">
+                                   <label for="city">Danışman Öğretmen:</label>
+                                   <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
 
+                               </div>
 
                               <button type="submit" class="btn btn-primary">Kullanıcı Ekle</button>
                            </form>
