@@ -1,0 +1,81 @@
+Staj Projesi Takip Sayfaları
+
+
+
+Admin
+
+Öğrenci ve Öğretmen Düzenleme(Komisyon) & Ekleme Sayfası
+Staj Süreçlerini Takip Edebileceği Liste Sayfası
+Öğrencilerin Danışmanlarını değiştirebilme
+
+Bireysel veya toplu olarak ekleme
+
+Süper Admin / Admin / Admin
+Süper Admin diğer adamları ekler.
+
+
+Öğretmen
+
+Profil sayfası(Kendi bilgilerini görebilmesi için)
+Öğrenci liste tablosu(Kendi sorumluluğundaki öğrencileri görüntüleyebilmek için)(Listede filtreme/sıralama işlemleri gerekli)
+	Öğrenci Durum tablosu(Seçtiği öğrencinin durumunu görüntüleyebilmek için,
+	Öğrenci bilgileri + staj ime durumları + dosyaları görüntüleme, Değerlendirme)
+	Stajın ve IME'nin başarılı/Başarısız/Eksik veya Kabul edilen gün sayısı, bunları gönderebilmelidir.
+
+	
+
+Komisyon
+
+Profil sayfası(Kendi bilgilerini görebilmesi için)
+Öğrenci liste tablosu(Kendi sorumluluğundaki öğrencileri görüntüleyebilmek için)
+	Öğrenci Durum tablosu(Seçtiği öğrencinin durumunu görüntüleyebilmek için,
+	Öğrenci bilgileri + staj ime durumları + dosyaları görüntüleme, Değerlendirme)
+Öğrenci belgelerini onaylayabileceği + danışman öğretmen atabileceği sayfa
+
+----------------------------************-------------------------------------------------------------
+Sayfalar
+
+1-  Bireysel Öğrenci/Öğretmen Ekleme Sayfası(Başlangıçta seçenek olsun öğrenci default gelsin, öğretmen seçilebilir olsun)user-add.html 
+2-  Öğrenci Düzenleme Sayfası(İçerisinde tablo şeklinde olacak user-add.html sayfası düzenlenecek)
+3-  Öğretmen Düzenleme Sayfası(user-add.html sayfası düzenlenecek)
+4-  Staj süreçlerini takip edebileceği (user-list.html sayfası düzenlenecek)
+5-  Admin Profil Sayfası(Basit)
+6-  Admin Ekleme Sayfası(Default oluşturulacak. Adminde sadece mail + parola bilgisi eklenip diğer admin oluşturulmuş olacak) *Z
+7-  Staj Başvuru sayfası(default oluşturulacak) 	*E
+8-  IME Başvuru sayfası(default oluşturulacak) 	*E
+9-  Öğrenci Kişisel Profil Sayfası(**user-profile.html sayfası buna uygun**)
+10- Öğrenci Liste Tablosu(Admin/Öğretmen/Komisyon öğrencileri görüntüleyebilmesi için) (**user-list.html sayfası buna uygun**)
+11- Öğretmen Kişisel Profil Sayfası(Komisyon ise sayfa başlangıcında komisyon şeklinde sıfat bulunacak)(**user-profile.html sayfası buna uygun**)
+12- Öğretmen Liste Tablosu(Admin öğretmenleri görüntüleyebilmesi için) (user-list.html sayfası buna uygun)
+13- Öğrenci Durum Sayfası(Seçtiği öğrencinin durumlarını, Öğrenci bilgileri + staj ime durumları 
+		      + dosyaları görüntüleme, Değerlendirme ve görüntüleyebilmesi açısından) (**page-task.html sayfası buna uygun**) 
+14- Öğretmenin Görebileceği öğrenci profil sayfası -- (**user-profile.html sayfası buna uygun**)  *** Çok gerekli değil ilk aşamada *** 
+	(Bu sayfada gönderilen belgeleri, staj ime başarılı/Başarısız/Eksik, Eksikse Kabul edilen gün sayısı görüntüleyebilmelidir.)
+15- Öğrenci belgelerini onaylayabileceği ve onayladıktan sonra danışman öğretmen atayabileceği sayfa (**user-list.html sayfası buna uygun**)
+
+
+
+
+----------------------------************-------------------------------------------------------------
+
+
+
+
+
+
+
+
+Öğrenci
+
+Fakülte, bölüm, sınıf bilgileri eklenecek
+Stajı bittiğinde, staj defteri ve evraklarını yüklemesi için sayfa
+	Komisyon belgeleri incelendikten sonra geri bildirim alabilmeli
+	(Eksik belge/staj sınavına alınacak/Staj Tarihi/Değerlendirilecek)
+	Öğrenci kendisini ilgilendiren her durumu takip edebilmelidir.
+
+	
+
+
+
+
+
