@@ -1,6 +1,3 @@
-<?php
-include '../vt.php'
-?>
 
 <!doctype html>
 <html lang="en">
@@ -20,15 +17,15 @@ include '../vt.php'
       <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css">
       <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">  </head>
   <body class="  ">
-    <!-- loader Start -->
+    <!-- loader Start
     <div id="loading">
           <div id="loading-center">
           </div>
     </div>
-    <!-- loader END -->
+    loader END -->
     <!-- Wrapper Start -->
     <div class="wrapper">
-      
+
       <div class="iq-sidebar  sidebar-default ">
           <div class="iq-sidebar-logo d-flex align-items-center">
               <a href="../backend/index.html" class="header-logo">
@@ -752,34 +749,16 @@ include '../vt.php'
                               <label>Kullanıcı Rolü:</label>
                               <select name="type" class="selectpicker form-control" data-style="py-0">
                                  <option>Öğrenci</option>
-                                 <option>Web Designer</option>
-                                 <option>Web Developer</option>
-                                 <option>Tester</option>
-                                 <option>Php Developer</option>
-                                 <option>Ios Developer </option>
+                                 <option>Öğretmen</option>
+                                 <option>Komisyon</option>
                               </select>
-                           </div>
-                           <div class="form-group">
-                              <label for="furl">Facebook Url:</label>
-                              <input type="text" class="form-control" id="furl" placeholder="Facebook Url">
-                           </div>
-                           <div class="form-group">
-                              <label for="turl">Twitter Url:</label>
-                              <input type="text" class="form-control" id="turl" placeholder="Twitter Url">
-                           </div>
-                           <div class="form-group">
-                              <label for="instaurl">Instagram Url:</label>
-                              <input type="text" class="form-control" id="instaurl" placeholder="Instagram Url">
-                           </div>
-                           <div class="form-group">
-                              <label for="lurl">Linkedin Url:</label>
-                              <input type="text" class="form-control" id="lurl" placeholder="Linkedin Url">
                            </div>
                         </form>
                      </div>
                   </div>
             </div>
             <div class="col-xl-9 col-lg-8">
+                <form name="ekleme_formu" method="post">
                   <div class="card">
                      <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
@@ -830,7 +809,7 @@ include '../vt.php'
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="email">Posta Kodu:</label>
-                                    <input type="email" class="form-control" id="zip_cod" name="zip_code" placeholder="Posta Kodu">
+                                    <input type="text" class="form-control" id="zip_cod" name="zip_code" placeholder="Posta Kodu">
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="pno">Vatandaşlık:</label>
@@ -842,12 +821,6 @@ include '../vt.php'
                                     <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
 
                                  </div>
-
-
-                                  <div class="form-group col-md-12">
-                                      <label for="city">Danışman Öğretmen:</label>
-                                      <input type="text" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
-                                  </div>
                               </div>
                               <hr>
                               <h5 class="mb-3">Güvenlik</h5>
@@ -870,23 +843,6 @@ include '../vt.php'
                               </div>
 
 
-                               <?php
-                               //////////////////////////////////////////////////////////////////////////////////////////////////////
-                               //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-                               //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
-                               if ($_POST) {
-                                   include("../vt.php");
-                                   $baglanti->query("INSERT INTO ogrenciler (ogrenci_id, danisman_id, bolum_id, o_adi, o_soyadi, o_mail, o_tel_no, o_sinif, durum_id, o_foto, o_pass)
-                                     VALUES ('$txtogrencino','$txtdanismanid', '$txtbol', '$txtadi', '$txtsoyadi', '$txtmail', '$txttelno', '$txtsinif', '1', 'a', '$txtpassx')");
-
-
-                               }
-                               //////////////////////////////////////////////////////////////////////////////////////////////////////
-                               //////////////////////////////////////////////////////////////////////////////////////////////////////
-                               
-                               ?>
 
                                <div class="form-group col-md-12">
                                    <label for="city">Danışman Öğretmen:</label>
@@ -894,11 +850,63 @@ include '../vt.php'
 
                                </div>
 
-                              <button type="submit" class="btn btn-primary">Kullanıcı Ekle</button>
+
+                              <button type="submit"  class="btn btn-primary" ID="btnKayit">Kullanıcı Ekle</button>
+
+
+                               <?php
+                               include('../vt.php');
+                               //mysql veri tabanına bağlanıyoruz
+                               //sizde kendi veri tabanına göre bilgilerinizi güncelleyin
+                               //3. parametre password bende boş sizde kendi kullanıcı bilgilerinize göre düzenleyin
+                             // $baglanti= new mysqli("localhost:3306","root","413508","stajdurumlari");
+                             // if($baglanti->connect_error)
+                             // {
+                             //     //hata varsa yazdırıyoruz ve sayfayı sonlandırıyor
+                             //     echo $baglanti->connect_error." hatası oluştu";
+                             //     exit;
+                             // }
+
+                             // else
+                             // {
+                             //     echo 'Bağlandı';
+                             // }
+                             // //türkçe karakter sorunu olmasın diye karakter setini ayarlıyoruz
+                             // $baglanti->set_charset("utf8");
+
+
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
+                               if ($_POST) {
+                                  $sql_query = "INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID)
+                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,1)";
+                                   if (mysqli_query($baglanti, $sql_query)) {
+                                     echo "New record created successfully";
+                                 }
+                                   else {
+                                       echo "Error: " . $sql_query . "<br>" . mysqli_error($baglanti);
+                                  }
+
+                                   //$baglanti->query("INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID)
+                                   //$baglanti->query("CREATE TABLE Persona (PersonID int,LastName varchar(255),FirstName varchar(255),Address varchar(255),City varchar(255));");
+
+
+
+                                   //$baglanti->query("INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID)
+                                   //VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher')");
+                               }
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+                               //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                               ?>
+
+
                            </form>
                         </div>
                      </div>
                   </div>
+                </form>
             </div>
          </div>
       </div>

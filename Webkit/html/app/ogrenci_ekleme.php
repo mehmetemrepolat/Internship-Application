@@ -355,8 +355,11 @@
                                 //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
                                 if ($_POST) {
                                     include("../vt.php");
-                                    $baglanti->query("INSERT INTO ogrenciler (ogrenci_id, danisman_id, bolum_id, o_adi, o_soyadi, o_mail, o_tel_no, o_sinif, durum_id, o_foto, o_pass)
-                                     VALUES ('$txtogrencino','$txtdanismanid', '$txtbol', '$txtadi', '$txtsoyadi', '$txtmail', '$txttelno', '$txtsinif', '1', 'a', '$txtpassx')");
+                                    $sql_query = "INSERT INTO ogrenciler (ogrenci_id, danisman_id, bolum_id, o_adi, o_soyadi, o_mail, o_tel_no, o_sinif, durum_id, o_foto, o_pass) VALUES ('$txtogrencino','$txtdanismanid', '$txtbol', '$txtadi', '$txtsoyadi', '$txtmail', '$txttelno', '$txtsinif', '1', 'a', '$txtpassx')";
+
+
+                                    //$baglanti->query("INSERT INTO ogrenciler (ogrenci_id, danisman_id, bolum_id, o_adi, o_soyadi, o_mail, o_tel_no, o_sinif, durum_id, o_foto, o_pass)
+                                     //VALUES ('$txtogrencino','$txtdanismanid', '$txtbol', '$txtadi', '$txtsoyadi', '$txtmail', '$txttelno', '$txtsinif', '1', 'a', '$txtpassx')");
 
 
                                 }

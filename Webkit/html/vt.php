@@ -3,18 +3,18 @@
 //mysql veri tabanına bağlanıyoruz
 //sizde kendi veri tabanına göre bilgilerinizi güncelleyin
 //3. parametre password bende boş sizde kendi kullanıcı bilgilerinize göre düzenleyin
-@$baglanti= new mysqli("localhost:3306","root","413508","stajdurumlari");
+$baglanti= new mysqli("localhost:3306","root","413508","stajdurumlari");
 if($baglanti->connect_error)
 {
     //hata varsa yazdırıyoruz ve sayfayı sonlandırıyor
     echo $baglanti->connect_error." hatası oluştu";
     exit;
 }
+
 else
 {
     echo 'Bağlandı';
 }
-
 //türkçe karakter sorunu olmasın diye karakter setini ayarlıyoruz
 $baglanti->set_charset("utf8");
 ?>
