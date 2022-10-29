@@ -17,15 +17,15 @@
       <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css">
       <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">  </head>
   <body class="  ">
-    <!-- loader Start
+    <!-- loader Start -->
     <div id="loading">
           <div id="loading-center">
           </div>
     </div>
-    loader END -->
+    <!-- loader END -->
     <!-- Wrapper Start -->
     <div class="wrapper">
-
+      
       <div class="iq-sidebar  sidebar-default ">
           <div class="iq-sidebar-logo d-flex align-items-center">
               <a href="../backend/index.html" class="header-logo">
@@ -117,14 +117,14 @@
                                                       <i class="las la-minus"></i><span>User Profile</span>
                                                   </a>
                                               </li>
-                                              <li class="active">
+                                              <li class="">
                                                   <a href="user-add.php">
                                                       <i class="las la-minus"></i><span>User Add</span>
                                                   </a>
                                               </li>
-                                              <li class="">
+                                              <li class="active">
                                                   <a href="../app/user-list.html">
-                                                      <i class="las la-minus"></i><span>User List</span>
+                                                      <i class="las la-minus"></i><span>Öğrenci Listesi</span>
                                                   </a>
                                               </li>
                                       </ul>
@@ -483,7 +483,7 @@
                       </a>
                   </div>
                   <div class="navbar-breadcrumb">
-                      <h5>Öğrenci Ekleme</h5>
+                      <h5></h5>
                   </div>
                   <div class="d-flex align-items-center">
                       <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -716,159 +716,107 @@
               </nav>
           </div>
       </div>      <div class="content-page">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-xl-3 col-lg-4">
-                  <div class="card">
-                     <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                           <h4 class="card-title">Yeni Öğrenci Ekle</h4>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <form method="post">
-                           <div class="form-group">
-                              <div class="crm-profile-img-edit position-relative">
-                                 <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
-                                 <div class="crm-p-image bg-primary">
-                                    <i class="las la-pen upload-button"></i>
-                                    <input class="file-upload" type="file" accept="image/*">
-                                 </div>
-                              </div>
-                           <div class="img-extension mt-3">
-                              <div class="d-inline-block align-items-center">
-                                    <span>Sadece</span>
-                                 <a href="javascript:void();">.jpg</a>
-                                 <a href="javascript:void();">.png</a>
-                                 <a href="javascript:void();">.jpeg</a>
-                                 <span>formatlarına izin vardır</span>
-                              </div>
-                           </div>
-                           </div>
-                           <div class="form-group">
-                              <label>Kullanıcı Rolü:</label>
-                              <select name="kullanici_rolu" class="selectpicker form-control" data-style="py-0">
-                                 <option>Öğrenci</option>
-                                 <option>Öğretmen</option>
-                                 <option>Komisyon</option>
-                              </select>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-header d-flex justify-content-between">
+               <div class="header-title">
+                  <h4 class="card-title">Öğrenci Listesi</h4>
+               </div>
             </div>
-            <div class="col-xl-9 col-lg-8">
-                <form name="ekleme_formu">
-                  <div class="card">
-                     <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                           <h4 class="card-title">Öğrenci Bilgileri</h4>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="new-user-info">
-                           <form name="ekleme" method="post">
-                              <div class="row">
-                                 <div class="form-group col-md-6">
-                                    <label for="fname">Ad:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="fname" name="first_name" placeholder="Ad">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="lname">Soyad:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="lname" name="last_name" placeholder="Soyad">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="add1">TC Numarası:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="add1" name="tc_no" placeholder="TC Numarası">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="add2">Telefon Numarası:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="add2" name="tel_no" placeholder="Telefon Numarası">
-                                 </div>
-                                 <div class="form-group col-md-12">
-                                    <label for="cname">Mail Adresi:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="cname" name="mail_adress" placeholder="Mail Adresi">
-                                 </div>
-                                  <div class="form-group col-md-12">
-                                      <label for="cname">Sınıf:</label>
-                                      <input type="text" formmethod="post" class="form-control" name="class_no" id="cname" placeholder="Sınıfı">
-                                  </div>
-                                  <div></div>
-                                  <div class="form-group col-md-12">
-                                      <label for="cname">Adres:</label>
-                                      <input type="text" formmethod="post" class="form-control" id="cname" name="student_adress" placeholder="Adres">
-                                  </div>
-
-                                 <div class="form-group col-md-6">
-                                    <label for="mobno">Şehir:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="mobno" name="city_name" placeholder="Şehir">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="altconno">İlçe:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="altconno" name="town_name" placeholder="İlçe">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="email">Posta Kodu:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="zip_cod" name="zip_code" placeholder="Posta Kodu">
-                                 </div>
-                                 <div class="form-group col-md-6">
-                                    <label for="pno">Vatandaşlık:</label>
-                                    <input type="text"  formmethod="post"class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
-                                 </div>
-
-                                  <div class="form-group col-md-12">
-                                    <label for="city">Danışman Öğretmen:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
-
-                                 </div>
-                              </div>
-                              <hr>
-
-
-                              <button type="submit" formmethod="post"  class="btn btn-primary" ID="btnKayit">Kullanıcı Ekle</button>
-
-
-                               <?php
-                               include('../vt.php');
-
-                               //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
-                               if ($_POST) {
-
-                                   $first_name= $_REQUEST['first_name'];
-                                   $last_name = $_REQUEST['last_name'];
-                                   $tel_no = $_REQUEST['tel_no'];
-                                   $tc_no = $_REQUEST['tc_no'];
-                                   $mail_adress = $_REQUEST['mail_adress'];
-                                   $class_no = $_REQUEST['class_no'];
-                                   $student_adress = $_REQUEST['student_adress'];
-                                   $city_name = $_REQUEST['city_name'];
-                                   $town_name = $_REQUEST['town_name'];
-                                   $zip_code = $_REQUEST['zip_code'];
-                                   $citizen_ship = $_REQUEST['citizen_ship'];
-                                   $response_teacher = $_REQUEST['response_teacher'];
-                                   $user_role = $_REQUEST['kullanici_rolu'];
-
-                                  $sql_query = "INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID)
-                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher')";
-
-
-
-
-                                   $baglanti->query($sql_query);
-                                   
-                               }
-
-                               ?>
-
+            <div class="card-body">
+               <div class="table-responsive">
+                  <div class="row justify-content-between">
+                     <div class="col-sm-6 col-md-6">
+                        <div id="user_list_datatable_info" class="dataTables_filter">
+                           <form class="mr-3 position-relative">
 
                            </form>
                         </div>
                      </div>
+                     <div class="col-sm-6 col-md-6">
+
+                     </div>
                   </div>
-                </form>
+                  <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                     aria-describedby="user-list-page-info">
+                     <thead>
+                        <tr class="ligth">
+                            <th>ID</th>
+                           <th>Adı</th>
+                           <th>Soyadı</th>
+                            <th>TC Kimlik Numarası</th>
+                           <th>Telefon Numarası</th>
+                           <th>Mail</th>
+                           <th>Sınıf</th>
+                           <th>Adres</th>
+                           <th>İl</th>
+                           <th>İlçe</th>
+                            <th>Posta Kodu</th>
+                            <th>Uyruk</th>
+                            <th>Danışman Öğretmen</th>
+                            <th>İşlem</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+
+
+                        <tr>
+                            <?php
+                            include('../vt.php');
+                            $query = "SELECT * FROM students";
+                            if ($result = $baglanti->query($query)) {
+                                /* fetch associative array */
+                                while ($row = $result->fetch_assoc()) {
+                                    $ID = $row["st_id"];
+                                    $name = $row["st_name"];
+                                    $lastName = $row["st_lastName"];
+                                    $TC_No = $row["st_TC_No"];
+                                    $Phone = $row["st_PhoneNumber"];
+                                    $Mail = $row["st_mailAdress"];
+                                    $Class = $row["st_class"];
+                                    $Adr = $row["st_adress"];
+                                    $City = $row["st_city"];
+                                    $Town = $row["st_town"];
+                                    $postCode = $row["st_postCode"];
+                                    $citizen = $row["st_citizenship"];
+                                    $Teacher = $row["st_st_TeacherID"];
+                                    echo '<tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$lastName.'</td> 
+                                            <td>'.$TC_No.'</td> 
+                                            <td>'.$Phone .'</td>
+                                            <td>'.$Mail .'</td>
+                                            <td>'.$Class .'</td>
+                                            <td>'.$Adr .'</td>
+                                            <td>'.$City .'</td>
+                                            <td>'.$Town .'</td>
+                                            <td>'.$postCode .'</td>
+                                            <td>'.$citizen .'</td>
+                                            <td>'.$Teacher .'</td>       
+ 
+                                        </tr>';
+                                }
+                                /* free result set */
+                                $result->free();
+                            }
+                            ?>
+
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+                <div id="user-list-page-info" class="col-md-6">
+
+
+               </div>
             </div>
          </div>
       </div>
+   </div>
+</div>
       </div>
     </div>
     <!-- Wrapper End-->
