@@ -1,9 +1,3 @@
-<?php
-include '../vt.php'
-?>
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
