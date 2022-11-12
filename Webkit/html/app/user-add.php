@@ -1,4 +1,6 @@
-
+<?php
+include('../vt.php');
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -746,12 +748,25 @@
                            </div>
                            </div>
                            <div class="form-group">
+                               <form name="role_T" method="post">
+
                               <label>Kullanıcı Rolü:</label>
-                              <select name="kullanici_rolu" class="selectpicker form-control" data-style="py-0">
-                                 <option>Öğrenci</option>
-                                 <option>Öğretmen</option>
-                                 <option>Komisyon</option>
+                              <select name="kullanici_rolu" id="role_type" class="selectpicker form-control" data-style="py-0">
+                                 <option value="1">Öğrenci</option>
+                                 <option value="2">Öğretmen</option>
+                                 <option value="3">Komisyon</option>
                               </select>
+                                   <br>
+                                   <button type="submit" formmethod="post"  class="btn btn-primary" ID="btnRole">Rolü Kaydet</button>
+                                   <?php
+                                   if ($_POST) {
+                                       $role = $_REQUEST['kullanici_rolu'];
+
+                                       echo $role;
+                                   }
+                                   ?>
+
+                               </form>
                            </div>
                         </form>
                      </div>
@@ -790,6 +805,14 @@
                                     <input type="text" formmethod="post" class="form-control" id="cname" name="mail_adress" placeholder="Mail Adresi">
                                  </div>
                                   <div class="form-group col-md-12">
+                                      <label for="cname">Fakülte:</label>
+                                      <input type="text" formmethod="post" class="form-control" id="Fname" name="faculty" placeholder="Fakülte">
+                                  </div>
+                                  <div class="form-group col-md-12">
+                                      <label for="cname">Bölüm:</label>
+                                      <input type="text" formmethod="post" class="form-control" id="Dname" name="department" placeholder="Bölüm">
+                                  </div>
+                                  <div class="form-group col-md-12">
                                       <label for="cname">Sınıf:</label>
                                       <input type="text" formmethod="post" class="form-control" name="class_no" id="cname" placeholder="Sınıfı">
                                   </div>
@@ -813,27 +836,25 @@
                                  </div>
                                  <div class="form-group col-md-6">
                                     <label for="pno">Vatandaşlık:</label>
-                                    <input type="text"  formmethod="post"class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
+                                    <input type="text"  formmethod="post" class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
                                  </div>
-
                                   <div class="form-group col-md-12">
                                     <label for="city">Danışman Öğretmen:</label>
                                     <input type="text" formmethod="post" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
-
                                  </div>
                               </div>
                               <hr>
-
 
                               <button type="submit" formmethod="post"  class="btn btn-primary" ID="btnKayit">Kullanıcı Ekle</button>
 
 
                                <?php
-                               include('../vt.php');
 
                                //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
                                if ($_POST) {
 
+                                   $faculty = $_REQUEST['faculty'];
+                                   $department = $_REQUEST['department'];
                                    $first_name= $_REQUEST['first_name'];
                                    $last_name = $_REQUEST['last_name'];
                                    $tel_no = $_REQUEST['tel_no'];
@@ -847,14 +868,19 @@
                                    $citizen_ship = $_REQUEST['citizen_ship'];
                                    $response_teacher = $_REQUEST['response_teacher'];
                                    $user_role = $_REQUEST['kullanici_rolu'];
+                                   $temp_pass = password_hash(123, PASSWORD_DEFAULT);
 
-                                  $sql_query = "INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID)
-                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher')";
-                                  
-                                   $baglanti->query($sql_query);
+                                  $sql_query = "
+                                                INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID, st_faculty, st_department, st_password)
+                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher', '$faculty', '$department', '$temp_pass');
+                                                ";
+
+                                  $baglanti->query($sql_query);
+
+
+
                                }
                                ?>
-
 
                            </form>
                         </div>
