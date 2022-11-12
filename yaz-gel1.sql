@@ -73,11 +73,6 @@ create TABLE Internship_Informations(
     GSS					varchar(1),
     `25`			varchar(1)
 );
-
-
-
-
-
 create TABLE teachers_logininformations(
 	Teacher_password text not null,
     Teacher_ID		 INT NOT NULL,
