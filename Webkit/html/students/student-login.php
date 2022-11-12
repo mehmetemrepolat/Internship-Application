@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -79,12 +83,15 @@
                                                 {
                                                     //Giriş gerçekleşiyor
                                                     echo "Giriş Gerçekleşir";
-                                                    $_SESSION["Oturum"] = "5678"; //oturum oluşturma
-                                                    $_SESSION["st_mailAdress"] = $mail;
+                                                    $_SESSION["Oturum"] = "5672"; //oturum oluşturma
+                                                    $_SESSION["st_mailAdress"] = "$mail";
                                                     $QUERY = $baglanti->query($sql_query);
                                                     $RESULT = $QUERY -> fetch_array();
-                                                    $_SESSION["ID"] = $RESULT['st_id'];
-                                                    
+                                                    $student_ID = $RESULT['st_id'];
+                                                    $_SESSION["ID"] = "$student_ID";
+
+                                                    echo $_SESSION["ID"];
+                                                    header("location:student-profile.php"); //sayfa yönlendirme
 
                                                 }
                                                 else{
