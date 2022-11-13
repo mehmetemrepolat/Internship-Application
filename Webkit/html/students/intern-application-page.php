@@ -1,5 +1,6 @@
-
-
+<?php
+include('../vt.php');
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,61 +19,12 @@
     <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css">
     <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">  </head>
 <body class="  ">
-<!-- loader Start -->
-<?php
-include('../vt.php');
-
-session_start(); //oturum başlattık
-//oturumdaki bilgilerin doğruluğunu kontrol ediyoruz
-
-if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
-    //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
-    $student_id_No = $_SESSION["ID"];
-
-    $sqlProfileInfoQuery = "Select st_name, st_lastName, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
-                            st_postCode, st_citizenship, st_faculty, st_department FROM students where st_id = '$student_id_No'";
-    
-    if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
-        while($row = $Info_Results->fetch_assoc())
-        {
-
-            $name = $row["st_name"];
-            $st_lastName = $row["st_lastName"];
-            $st_PhoneNumber = $row["st_PhoneNumber"];
-            $st_mailAdress = $row["st_mailAdress"];
-            $st_class = $row["st_class"];
-            $st_adress = $row["st_adress"];
-            $st_city = $row["st_city"];
-            $st_town = $row["st_town"];
-            $st_postCode = $row["st_postCode"];
-            $st_citizenship = $row["st_citizenship"];
-            $st_faculty = $row["st_faculty"];
-            $st_department = $row["st_department"];
-        }
-    }
-    //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
-    //$row = $Info_Results->fetch_array();
-    
-
-    
-    $Info_Results->free();
-
-
-
-
-} else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
-    header("location:index.php");
-}else {
-
-    header("location:student-login.php");
-}
-
-?>
+<!-- loader Start
 <div id="loading">
-    <div id="loading-center">
-    </div>
+      <div id="loading-center">
+      </div>
 </div>
-<!-- loader END -->
+loader END -->
 <!-- Wrapper Start -->
 <div class="wrapper">
 
@@ -162,12 +114,12 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                     <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                                 </a>
                                 <ul id="user" class="iq-submenu collapse" data-parent="#otherpage">
-                                    <li class="active">
+                                    <li class="">
                                         <a href="../app/user-profile.html">
                                             <i class="las la-minus"></i><span>User Profile</span>
                                         </a>
                                     </li>
-                                    <li class="">
+                                    <li class="active">
                                         <a href="user-add.php">
                                             <i class="las la-minus"></i><span>User Add</span>
                                         </a>
@@ -533,7 +485,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                     </a>
                 </div>
                 <div class="navbar-breadcrumb">
-                    <h5>Öğrenci Profil Sayfası</h5>
+                    <h5>Staj Başvuru Sayfası</h5>
                 </div>
                 <div class="d-flex align-items-center">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -723,7 +675,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height"><?php echo $_SESSION["ID"]; ?><i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height">Savannah Nguyen<i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -756,7 +708,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-0 text-primary" id="h-05-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
-                                        <a href="studentlog-out.php">Logout</a>
+                                        <a href="../backend/auth-sign-in.php">Logout</a>
                                     </li>
                                 </ul>
                             </li>
@@ -768,124 +720,221 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     </div>      <div class="content-page">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card car-transparent">
-                        <div class="card-body p-0">
-                            <div class="profile-image position-relative">
-                                <img src="../assets/images/page-img/profile.png" class="img-fluid rounded w-100" alt="profile-image">
+
+                <div>
+                    <form name="ekleme_formu">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="new-user-info">
+                                    <form name="application" method="post">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <h4>Staj Bilgileri:</h4>
+                                            </div>
+
+
+                                            <div class="checkbox form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Staj-1</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+                                            </div>
+                                            <div class="checkbox form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Staj-2</label>
+                                            </div>
+                                            <div class="checkbox form-group col-md-6">
+                                                <label for="mobno">İş Günü:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
+                                            </div>
+                                            <div class="checkbox form-group col-md-6">
+                                                <label for="mobno">Başlama Tarihi:</label>
+                                                <input type="date" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
+                                            </div>
+
+                                            <div class="checkbox form-group col-md-12">
+                                                <label></label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Cumartesi Çalışıyor</label>
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">Ailemden, Kendimden veya Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum:
+                                                    </label>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Evet</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Hayır</label>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum):
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Evet</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Hayır</label>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">25 Yaşını Doldurdum:
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Evet</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Hayır</label>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-12">
+                                                <h4>Staj Yapılacak Kurum Bilgileri:</h4>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">Resmi Adı:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Company_Name" placeholder="Resmi Adı">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">Faaliyet Alanı:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Activity_Field" placeholder="Faaliyet Alanı">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <h4>Adres Bilgileri:</h4>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cname">Adres:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Company_adress" placeholder="Adres">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="mobno">İl:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="altconno">İlçe:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="altconno" name="Company_town" placeholder="İlçe">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="email">Posta Kodu:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="zip_cod" name="Company_postCode" placeholder="Posta Kodu">
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <h4>İletişim Bilgileri:</h4>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="cname">Telefon:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="Fname" name="Company_PhoneNumber" placeholder="Telefon">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="cname">Fax:</label>
+                                                <input type="text" formmethod="post" class="form-control" id="Dname" name="Company_FAX" placeholder="Fax">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="cname">E-Posta:</label>
+                                                <input type="text" formmethod="post" class="form-control" name="class_no" id="Company_mailAdress" placeholder="E-Posta">
+                                            </div>
+                                            <div></div>
+
+                                            <div class="form-group col-md-12">
+                                                <h5>Staj Sorumlusu Ünvanı:</h5>
+                                            </div>
+                                            <div class="checkbox d-inline-block mr-4">
+                                            </div>
+                                            <div class="checkbox d-inline-block mr-4">
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Mühendis</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Teknik Öğretmen</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Hekim</label>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Kurum olarak 3308 sayılı kanundaki devlet katkısından yararlanmak istiyor musunuz?</label>
+                                            </div>
+                                            <div class="checkbox d-inline-block mr-4">
+                                            </div>
+                                            <div class="checkbox d-inline-block mr-4">
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Evet</label>
+                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <label for="checkbox1">Hayır</label>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                        <button type="submit" formmethod="post"  class="btn btn-primary" ID="btnKayit">Başvuru Belgesi Oluştur</button>
+
+
+                                        <?php
+
+                                        //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
+                                        if ($_POST) {
+
+                                            $faculty = $_REQUEST['faculty'];
+                                            $department = $_REQUEST['department'];
+                                            $first_name= $_REQUEST['first_name'];
+                                            $last_name = $_REQUEST['last_name'];
+                                            $tel_no = $_REQUEST['tel_no'];
+                                            $tc_no = $_REQUEST['tc_no'];
+                                            $mail_adress = $_REQUEST['mail_adress'];
+                                            $class_no = $_REQUEST['class_no'];
+                                            $student_adress = $_REQUEST['student_adress'];
+                                            $city_name = $_REQUEST['city_name'];
+                                            $town_name = $_REQUEST['town_name'];
+                                            $zip_code = $_REQUEST['zip_code'];
+                                            $citizen_ship = $_REQUEST['citizen_ship'];
+                                            $response_teacher = $_REQUEST['response_teacher'];
+                                            $user_role = $_REQUEST['kullanici_rolu'];
+                                            $temp_pass = password_hash(123, PASSWORD_DEFAULT);
+
+                                            $sql_query = "
+                                                INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID, st_faculty, st_department, st_password)
+                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher', '$faculty', '$department', '$temp_pass');
+                                                ";
+
+                                            $baglanti->query($sql_query);
+
+
+
+                                        }
+                                        ?>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-sm-0 px-3">
-                <div class="col-lg-4 card-profile">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="profile-img position-relative">
-                                    <img src="../assets/images/user/1.jpg" class="img-fluid rounded avatar-110" alt="profile-image">
-                                </div>
-                                <div class="ml-3">
-                                    <h4 class="mb-1"><?php echo $name." ".$st_lastName; ?></h4>
-                                    <p class="mb-2"><?php echo $st_class.".Sınıf"?></p>
-                                </div>
-                            </div>
-                            <p>
-
-                            </p>
-                            <ul class="list-inline p-0 m-0">
-                                <li class="mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        <p class="mb-0"> <?php echo $st_city?> </p>
-                                    </div>
-                                </li>
-                                <li class="mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        <p class="mb-0"><?php echo $st_faculty." Fakültesi"?></p>
-                                    </div>
-                                </li>
-                                <li class="mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        <p class="mb-0"><?php echo $st_department.""?></p>
-                                    </div>
-                                </li>
-                                <li class="mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        <p class="mb-0"><?php echo $st_PhoneNumber?></p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        <p class="mb-0"><?php echo $st_mailAdress?></p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 card-profile">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <ul class="d-flex nav nav-pills mb-3 text-center profile-tab" id="profile-pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active show" data-toggle="pill" href="#profile1" role="tab" aria-selected="false">Durum</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Kişisel Bilgilerim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Eğitim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Deneyimlerim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a id="view-btn" class="nav-link" data-toggle="pill" href="#profile5" role="tab" aria-selected="true">Hakkımda</a>
-                                </li>
-                            </ul>
-                            <div class="profile-content tab-content">
-
-                                <div id="profile1" class="tab-pane fade active show">
-                                    <?php
-                                    echo "Herhangi bir staj/IME başvurunuz bulunmamaktadır.";
-                                    echo "";
-
-                                    ?>
-
-                                </div>
-                                <div id="profile2" class="tab-pane fade">
-                                    <?php
-                                    echo "Anlık olarak yaptığı kurumdaki stajın bilgilerini.";
-                                    echo "";
-
-                                    ?>
-                                </div>
-                                <div id="profile3" class="tab-pane fade">
-                                </div>
-                                <div id="profile4" class="tab-pane fade">
-                                </div>
-                                <div id="profile5" class="tab-pane fade">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -763,7 +763,7 @@
 
 
                         <tr>
-                            <?php
+                            <?php   
                             include('../vt.php');
                             $query = "SELECT * FROM students";
                             if ($result = $baglanti->query($query)) {
