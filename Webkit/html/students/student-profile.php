@@ -20,12 +20,44 @@
 <body class="  ">
 <!-- loader Start -->
 <?php
+include('../vt.php');
+
 session_start(); //oturum başlattık
 //oturumdaki bilgilerin doğruluğunu kontrol ediyoruz
 
 if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
-    echo $_SESSION["ID"];
+    $student_id_No = $_SESSION["ID"];
+
+    $sqlProfileInfoQuery = "Select st_name, st_lastName, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
+                            st_postCode, st_citizenship, st_faculty, st_department FROM students where st_id = '$student_id_No'";
+    
+    if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
+        while($row = $Info_Results->fetch_assoc())
+        {
+
+            $name = $row["st_name"];
+            $st_lastName = $row["st_lastName"];
+            $st_PhoneNumber = $row["st_PhoneNumber"];
+            $st_mailAdress = $row["st_mailAdress"];
+            $st_class = $row["st_class"];
+            $st_adress = $row["st_adress"];
+            $st_city = $row["st_city"];
+            $st_town = $row["st_town"];
+            $st_postCode = $row["st_postCode"];
+            $st_citizenship = $row["st_citizenship"];
+            $st_faculty = $row["st_faculty"];
+            $st_department = $row["st_department"];
+        }
+    }
+    //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
+    //$row = $Info_Results->fetch_array();
+    
+
+    
+    $Info_Results->free();
+
+
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
@@ -34,12 +66,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
 
     header("location:student-login.php");
 }
-if(! empty($_SESSION['Oturum'])){
-    echo "Boş değil";
-}
-else{
-    echo "Hoş değil";
-}
+
 ?>
 <div id="loading">
     <div id="loading-center">
@@ -760,7 +787,7 @@ else{
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded avatar-110" alt="profile-image">
                                 </div>
                                 <div class="ml-3">
-                                    <h4 class="mb-1"><?php echo $_SESSION["ID"]; ?></h4>
+                                    <h4 class="mb-1"><?php echo $name; ?></h4>
                                     <p class="mb-2">UI/UX Designer</p>
                                     <a href="#" class="btn btn-primary font-size-14">İletişim</a>
                                 </div>
@@ -777,7 +804,7 @@ else{
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        <p class="mb-0">Calefornia, U.S.A</p>
+                                        <p class="mb-0"> <?php echo $st_city?> </p>
                                     </div>
                                 </li>
                                 <li class="mb-2">
