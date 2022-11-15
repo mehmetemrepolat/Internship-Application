@@ -955,10 +955,10 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         if ($_POST) {
 
                                             if (isset($_REQUEST['staj_2'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $staj = 2;
+                                                $staj = '2';
                                             }
                                             if (isset($_REQUEST['staj_1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $staj = 1;
+                                                $staj = '1';
                                             }
                                             $work_day = $_REQUEST['work_day'];
 
@@ -1014,10 +1014,10 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                               INSERT INTO internship_application (st_id, Company_ID, Internship_ID, starting_date, finish_date, Company_Name,
                                                                                   working_day, saturday_working, Activity_Field, Company_adress, Company_city,
                                                                                   Company_town, Company_postCode, Company_PhoneNumber, Company_FAX, Company_mailAdress,
-                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308)
+                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308, application_complete)
                                                VALUES ('$student_id_No', '$Company_ID', '$Internship_ID', '$start_date', '2022-12-21', '$Company_Name',
                                                        '$work_day', '1','$Activity_Field', '$Company_adress', '$Company_city', '$Company_town', '$Company_postCode',
-                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','$Law_3308');";
+                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','$Law_3308', 0);";
 
 
                                             if (!$baglanti -> query($sql_query) ) {

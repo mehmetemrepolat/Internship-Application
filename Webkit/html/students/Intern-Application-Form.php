@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<?php
-include ('session.php');
-
-?>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +32,7 @@ include ('session.php');
 <center>
 <div class="container">
     <div class="image">
-        <img src="../../../kocaeli-universitesi-logo.png" width="100" height="100">
+        <img src="kocaeli-universitesi-logo.png" width="100" height="100">
     </div>
     <div class="text" >
         <div>KOCAELİ ÜNİVERSİTESİ</div>
@@ -45,7 +40,7 @@ include ('session.php');
         <div>(Staj Başvuru ve Kabul Formu)</div>
     </div>
     <div class="image">
-        <img src="../../../basvuru_logo1.png" width="100" height="100">
+        <img src="basvuru_logo1.png" width="100" height="100">
     </div>
 </div>
 </center>
@@ -94,10 +89,22 @@ include ('session.php');
         }
     </style>
 
+    <!-- SQL UĞRAŞLARI -->
+
+
+
+
+
+    <!--  -->
+    <!--  -->
+    <!--  -->
+
+
+
     <div class="center">
 
-        <div> <?php ?>
-            <?php echo $st_faculty." ".$st_department?> Mühendisliği Bölümü <?php echo $student_id_No ?> numaralı öğrencisiyim.
+        <div>
+             <?php session_start(); echo $_SESSION["st_faculty"]." Fakültesi ".$_SESSION["st_department"]; ?> Mühendisliği Bölümü <?php echo $_SESSION["ID"]; ?> numaralı öğrencisiyim.
         </div>
     </div>
     <div class="center">
@@ -111,115 +118,112 @@ include ('session.php');
         <b>Kişisel Bilgiler</b>
     </div>
     <div class="center2">
-        <div>Ad Soyad: </div><div><?php echo $name." ".$st_lastName ?></div>
+        <div>Ad Soyad: </div><div>&nbsp;<?php echo $_SESSION["NAME"]." ".$_SESSION["last_name"];?></div>
     </div>
     <div class="center2">
         <div>TC Kimlik Numarası:</div>
-        <div><?php echo $st_TC_No ?></div>
+        <div>&nbsp;<?php echo $_SESSION["st_TC_No"];?></div>
         <div class="padding-gap">Uyruğu:</div>
-        <div><?php echo $st_citizenship ?></div>
+        <div>&nbsp;<?php echo $_SESSION["st_citizenship"]; ?></div>
     </div>
     <div class="center2">
         <div>Ev Tel/GSM:</div>
-        <div><?php echo $st_PhoneNumber ?></div>
-        <div class="padding-gap" name="mail_adress">E-Posta:</div>
-        <div><?php echo $st_mailAdress ?></div>
+        <div>&nbsp;<?php echo $_SESSION["st_phoneNumber"];?></div>
+        <div class="padding-gap" name="mail_adress">E-Posta</div>
+        <div>&nbsp;<?php echo $_SESSION["student_mailAdress"];?></div>
     </div>
 
     <div class="center4">
     <b>Adres</b>
     </div>
     <div class="center2">
-        <div>İl: <?php echo $st_city ?></div>
-        <div class="padding-gap">İlçe :<?php echo $st_town ?></div>
-        <div class="padding-gap">Posta Kodu: <?php echo $st_postCode ?></div>
+        <div>İl:&nbsp;<?php echo $_SESSION["st_city"]; ?></div>
+        <div class="padding-gap">İlçe:&nbsp;<?php echo $_SESSION["st_town"]; ?></div>
+        <div class="padding-gap">Posta Kodu:&nbsp;<?php echo $_SESSION["st_postCode"]; ?></div>
     </div>
     <div class="center2">
-        <div>Tam Adres: <?php echo $st_adress ?></div>
+        <div>Tam Adres:&nbsp;<?php echo $_SESSION["st_adress"]; ?></div>
     </div>
-    <form name="ekleme" method="post">
-
     <div class="center4">
         <b>Staj Bilgileri</b>
     </div>
     <div class="center2">
-        <div>Staj-1 <input name="intern-level-1" type="checkbox"></div>
-        <div class="padding-gap">Staj-2 <input name="intern-level-2" type="checkbox"></div>
+        <div>Staj-1 <input type="checkbox"></div>
+        <div class="padding-gap">Staj-2 <input type="checkbox"></div>
     </div>
-
-        <div class="center2">
-            <div>İş Günü: <input name="work-day" size="1" type="int"></div>
-            <div class="padding-gap">Cumartesi Çalışıyor: <input name="saturday-working" size="1px" type="checkbox"></div>
-        </div>
-
-        <div class="center2">
-            <div>Başlama Tarihi: <input id="internship-begin-date" name="begin-date"  value="12-12-2021" size="3px" type="date"></div>
-            <div class="padding-gap">Bitiş Tarihi: <input name="end-date" size="3px" type="date" disabled></div>
-        </div>
-
-
-
-        <div class="center4">
-            <div><li>Ailemden,  Kendimden veya  Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum.</li></div>
-            <div class="padding-gap">Evet<input type="checkbox"></div>
-        <div class="padding-gap">Hayır<input type="checkbox"></div>
+    <div class="center2">
+        <div>Başlama Tarihi:&nbsp;<?php echo $_SESSION["starting_date"]; ?></div>
+        <div class="padding-gap">Bitiş Tarihi:&nbsp;<?php echo $_SESSION["finish_date"]; ?></div>
     </div>
-    <div class="center4">
-        <div><li>Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum)</li></div>
-        <div class="padding-gap">Evet<input type="checkbox"></div>
-        <div class="padding-gap">Hayır<input type="checkbox"></div>
+    <div class="center2">
+        <div>İş Günü:&nbsp;<?php echo $_SESSION["working_day"]; ?></div>
+        <div class="padding-gap">Cumartesi Çalışıyor:&nbsp;</div>
+        &nbsp;<?php if($_SESSION["saturday_working"] == '1'){echo "  Evet";} else{echo "  Hayır";}?>
+
     </div>
 
     <div class="center4">
-        <div><li>25 Yaşını Doldurdum</li></div>
-        <div class="padding-gap">Evet<input type="checkbox"></div>
-        <div class="padding-gap">Hayır<input type="checkbox"></div></div>
+        <div><li>Ailemden,  Kendimden veya  Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum:</li></div>
+        &nbsp;<?php if($_SESSION["health_care"] == '1'){echo "  Evet";} else{echo "  Hayır";}?>
+
+    </div>
+    <div class="center4">
+        <div><li>Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum):</li></div>
+        &nbsp;<?php if($_SESSION["GSS"] == '1'){echo "  Evet";} else{echo "  Hayır";}?>
+
+    </div>
+
+    <div class="center4">
+        <div><li>25 Yaşını Doldurdum: </li></div>
+
+        &nbsp;<?php if($_SESSION["yearOld_25"] == '1'){echo "  Evet";} else{echo "  Hayır";}?>
+    </div>
 
 
     <div class="center2">
-        <div>Ad Soyad: <?php echo $name." "?></div>
+        <div>Ad Soyad:&nbsp;<?php echo $_SESSION["NAME"]." ". $_SESSION["last_name"]; ?></div>
         <div class="padding-gap4">İmza:</div>
-        <div class="padding-gap4">Tarih: <input type="date"></div>
+        <div class="padding-gap4">Tarih: <?php echo date("Y/m/d"); ?></div>
     </div>
 
-    </form>
     <div class="padding-bottom"></div>
+
+
     <div class="center4">
         <b>Staj Yapılacak Kurum Bilgileri</b>
     </div>
     <div class="center2">
-        <div>Resmi Adı: <input name="full-name" size="70"></div>
+        <div>Resmi Adı: <?php echo $_SESSION["Company_Name"]; ?></div>
     </div>
     <div class="center2">
-        <div>Faaliyet Alanı: <input name="full-name" size="70"></div>
+        <div>Faaliyet Alanı: <?php echo $_SESSION["Activity_Field"]; ?></div>
     </div>
     <div class="center2">
-        <div>Adres Bilgileri: <input name="full-name" size="70"></div>
+        <div>Adres Bilgileri: <?php echo $_SESSION["Company_Adress"]; ?></div>
     </div>
     <div class="center2">
-        <div>İl: <input name="city"></div>
-        <div class="padding-gap">İlçe :<input name="town"></div>
-        <div class="padding-gap">Posta Kodu: <input name="zip-code" size="5px"></div>
+        <div>İl: <?php echo $_SESSION["Company_city"]; ?></div>
+        <div class="padding-gap">İlçe :<?php echo $_SESSION["Company_town"]; ?></div>
+        <div class="padding-gap">Posta Kodu: <?php echo $_SESSION["Company_postCode"]; ?></div>
     </div>
     <div class="center2">
         <div>İletişim Bilgileri:</div>
     </div>
     <div class="center2">
-        <div>Telefon: <input name="city"></div>
-        <div class="padding-gap">Fax :<input name="town"></div>
-        <div class="padding-gap">E-Posta: <input name="zip-code" size="5px"></div>
+        <div>Telefon: <?php echo $_SESSION["Company_PhoneNumber"]; ?></div>
+        <div class="padding-gap">Fax :<?php echo $_SESSION["FAX"]; ?></div>
+        <div class="padding-gap">E-Posta: <?php echo $_SESSION["Company_mailAdress"]; ?></div>
     </div>
 
     <div class="center2">
         <div>Staj Sorumlusu Ünvanı:</div>
-        <div class="padding-gap">Mühendis <input type="checkbox" name="town"></div>
-        <div class="padding-gap">Teknik Öğretmen <input type="checkbox"></div>
-        <div class="padding-gap">Hekim <input type="checkbox"></div>
+        <?php if($_SESSION["Responsible_Title"] == "1"){echo "Mühendis";} if($_SESSION["Responsible_Title"] == "2"){echo "Teknik Öğretmen";}  ?>
     </div>
     <div class="center2">
         <div>Kurum olarak 3308 sayılı kanundaki devlet katkısından yararlanmak istiyor musunuz?</div>
-        <div class="padding-gap">Evet <input type="checkbox" name="town"></div>
-        <div class="padding-gap">Hayır<input type="checkbox"></div>
+        &nbsp;<?php if($_SESSION["law_3308"] == '1'){echo "  Evet";} else{echo "  Hayır";}?>
+
+
     </div>
     <center><p><small><b>Yukarıda adı geçen öğrencinin ilgili tarihlerde staj uygulamasını kurumumuzda yapması uygun görülmüştür.</b></small></p></center>
 

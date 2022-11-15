@@ -32,12 +32,8 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
 
     $companu = $_SESSION["Company_Name"];
 
-    $sqlProfileInfoQuery = "SELECT students.st_id, internship_application.Internship_ID, Company_Name, Activity_Field, 
-		students.st_name, students.st_lastName, students.st_PhoneNumber, 
-        students.st_mailAdress, students.st_class, students.st_adress, students.st_city, students.st_town,
-                            students.st_postCode, students.st_citizenship, students.st_faculty, students.st_department, students.st_IS_info, students.st_password
-FROM internship_application
-INNER JOIN students ON internship_application.st_id=students.st_id where st_id = $student_id_No";
+    $sqlProfileInfoQuery = "SELECT *
+FROM internship_application where st_id = $student_id_No";
 
 
 
@@ -45,24 +41,51 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
         while($row = $Info_Results->fetch_assoc())
         {
             $student_id = $row["st_id"];
+            $_SESSION[""] = "";
+            
+            
             $Internship_ID = $row["Internship_ID"];
+            $_SESSION["Internship_ID"] = "$Internship_ID";
+            $starting_date = $row["starting_date"];
+            $_SESSION["starting_date"] = "$starting_date";
+            $finish_date = $row["finish_date"];
+            $_SESSION["finish_date"] = "$finish_date";
             $Company_Name = $row["Company_Name"];
+            $_SESSION["Company_Name"] = "$Company_Name";
+            $working_day = $row["working_day"];
+            $_SESSION["working_day"] = "$working_day";
+            $saturday_working = $row["saturday_working"];
+            $_SESSION["saturday_working"] = "$saturday_working";
             $Activity_Field = $row["Activity_Field"];
-            $name = $row["st_name"];
-            $st_lastName = $row["st_lastName"];
-            $st_PhoneNumber = $row["st_PhoneNumber"];
-            $st_mailAdress = $row["st_mailAdress"];
-            $st_class = $row["st_class"];
-            $st_adress = $row["st_adress"];
-            $st_city = $row["st_city"];
+            $_SESSION["Activity_Field"] = "$Activity_Field";
+            $Company_Adress = $row["Company_Adress"];
+            $_SESSION["Company_Adress"] = "$Company_Adress";
+            $Company_city = $row["Company_city"];
+            $_SESSION["Company_city"] = "$Company_city";
+            $Company_town = $row["Company_town"];
+            $_SESSION["Company_town"] = "$Company_town";
+            $Company_postCode = $row["Company_postCode"];
+            $_SESSION["Company_postCode"] = "$Company_postCode";
+            $Company_PhoneNumber = $row["Company_PhoneNumber"];
+            $_SESSION["Company_PhoneNumber"] = "$Company_PhoneNumber";
+            $Company_FAX = $row["Company_FAX"];
+            $_SESSION["Company_FAX"] = "$Company_FAX";
+            $Company_mailAdress = $row["Company_mailAdress"];
+            $_SESSION["Company_mailAdress"] = "$Company_mailAdress";
+            $Responsible_Title = $row["Responsible_Title"];
+            $_SESSION["Responsible_Title"] = "$Responsible_Title";
+            $health_care = $row["health_care"];
+            $_SESSION["health_care"] = "$health_care";
+            $GSS = $row["GSS"];
+            $_SESSION["GSS"] = "$GSS";
+            $yearOld_25 = $row["yearOld_25"];
+            $_SESSION["yearOld_25"] = "$yearOld_25";
+            $law_3308 = $row["law_3308"];
+            $_SESSION["law_3308"] = "$law_3308";
+            $application_complete = $row["application_complete"];
+            $_SESSION["application_complete"] = "$application_complete";
 
-            $st_town = $row["st_town"];
-            $st_postCode = $row["st_postCode"];
-            $st_citizenship = $row["st_citizenship"];
 
-            $st_faculty = $row["st_faculty"];
-            $st_department = $row["st_department"];
-            $st_IS_info = $row["st_IS_info"];
 
         }
     }
@@ -564,7 +587,7 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
                                 <div class="iq-search-bar device-search">
                                     <form action="#" class="searchbox">
                                         <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                                        <input type="text" class="text search-input" placeholder="Search here...">
+                                        <input type="text"  formmethod="post" class="text search-input" placeholder="Search here...">
                                     </form>
                                 </div>
                             </li>
@@ -878,29 +901,16 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
                                 </li>
                             </ul>
                             <div class="profile-content tab-content">
+                                <form name="application" method="post">
 
                                 <div id="profile1" class="tab-pane fade active show">
 
-                                    <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
-                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
-                                           aria-describedby="user-list-page-info">
-                                        <thead>
-                                        <tr class="ligth">
-                                            <th>Başvuru ID</th>
-                                            <th>Firma Adı</th>
-                                            <th>Firma Alanı</th>
-                                            <th>İşlem</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
 
-
-                                        <tr>
                                             <?php
                                             include('../vt.php');
 
 
-                                            $query = "SELECT Internship_ID, Company_Name, Activity_Field FROM internship_application where st_id = $student_id_No";
+                                            $query = "SELECT Internship_ID, Company_Name, Activity_Field, application_complete FROM internship_application where st_id = $student_id_No";
 
 
 
@@ -908,10 +918,12 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
                                                     $Internship_ID = $row["Internship_ID"];
+                                                    $application_complete = $row["application_complete"];
                                                     $Activity_Field = $row["Activity_Field"];
                                                     $company_name = $row["Company_Name"];
                                                     $st_name = $row["st_name"];
                                                     $st_lastName = $row["st_lastName"];
+
                                                     $st_PhoneNumber = $row["st_PhoneNumber"];
                                                     $st_mailAdress = $row["st_mailAdress"];
                                                     $st_class = $row["st_class"];
@@ -924,25 +936,91 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
                                                     $st_department = $row["st_department"];
                                                     $st_IS_info = $row["st_IS_info"];
 
-                                                    echo '<tr> 
+                                                    if($application_complete == '1'){
+                                                        echo '
+                                        <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                           aria-describedby="user-list-page-info">
+                                        <thead>
+                                        <tr class="ligth">
+                                            <th>Başvuru ID</th>
+                                            <th>Firma Adı</th>
+                                            <th>Firma Alanı</th>
+                                            <th>Görüntüle/İndir</th>
+                                            <th>İşlem</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                        <tr> 
                                             <td>'.$Internship_ID.'</td> 
                                             <td>'.$company_name.'</td> 
                                             <td>'.$Activity_Field.'</td> 
-                                            <td><input type="button" value="Başvuruyu Tamamla"></td>
-
-                                          
- 
+                                            <td><a href="Intern-Application-Form.php" class="button">Başvuruyu Görüntüle</button></td> 
+                                            <td>    
+                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Tamamla</button>
+                                            </td>
                                         </tr>';
+                                                    }
+                                                    if($application_complete == '0');
+                                                    {
+                                                    }
+                                                    if($application_complete == '2');
+                                                    {
+                                                        echo '
+                                        <a>Başvurunuz değerlendirme aşamasındadır.</a>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                           aria-describedby="user-list-page-info">
+                                        <thead>
+                                        <tr class="ligth">
+                                            <th>Başvuru ID</th>
+                                            <th>Firma Adı</th>
+                                            <th>Firma Alanı</th>
+                                            <th>Durum</th>
+                                            
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                        <tr> 
+                                            <td>'.$Internship_ID.'</td> 
+                                            <td>'.$company_name.'</td> 
+                                            <td>'.$Activity_Field.'</td>
+                                            <td>Değerlendiriliyor</td> 
+                                           
+                                        </tr>';
+                                                    }
+
                                                 }
                                                 /* free result set */
                                                 $result->free();
                                             }
+
                                             ?>
 
                                         </tr>
                                         </tbody>
                                     </table>
+                                        <?php
+
+                                        if ($_POST) {
+
+                                            $sql_query = "UPDATE internship_application SET application_complete = '1' WHERE st_id = '$student_id_No';";
+                                            if (!$baglanti -> query($sql_query) ) {
+                                                echo("Error description: " . $baglanti -> error);
+                                            }
+                                            else{echo "Tamamdır"; }
+                                            $baglanti -> close();
+                                        }
+
+
+
+                                        ?>
+
+
                                 </div>
+                                </form>
+
                                 <div id="profile2" class="tab-pane fade">
                                     <?php
                                     echo "Anlık olarak yaptığı kurumdaki stajın bilgilerini.";
@@ -956,6 +1034,7 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_id =
                                 </div>
                                 <div id="profile5" class="tab-pane fade">
                                 </div>
+
                             </div>
                         </div>
                     </div>
