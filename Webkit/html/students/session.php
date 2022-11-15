@@ -9,12 +9,15 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     $student_id_No = $_SESSION["ID"];
 
     $sqlProfileInfoQuery = "Select st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
-                            st_postCode, st_citizenship, st_faculty, st_department FROM students where st_id = '$student_id_No'";
+                            st_postCode, st_citizenship, st_faculty, st_department, st_IS_info FROM students where st_id = '$student_id_No'";
 
+
+    //UPDATE `stajdurumlari`.`students` SET `st_IS_info` = '0' WHERE (`st_id` = '3');
+
+    $idFor_others = $student_id_No;
     if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
         while($row = $Info_Results->fetch_assoc())
         {
-
             $name = $row["st_name"];
             $st_lastName = $row["st_lastName"];
             $st_TC_No = $row["st_TC_No"];
@@ -28,6 +31,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
             $st_citizenship = $row["st_citizenship"];
             $st_faculty = $row["st_faculty"];
             $st_department = $row["st_department"];
+            $st_IS_info = $row["st_IS_info"];
         }
     }
 //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
@@ -38,6 +42,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     $Info_Results->free();
 
 
+    echo $st_faculty;
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){

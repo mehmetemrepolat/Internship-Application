@@ -28,14 +28,26 @@ session_start(); //oturum başlattık
 if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
     $student_id_No = $_SESSION["ID"];
+    $student_name_i = $_SESSION["NAME"];
 
-    $sqlProfileInfoQuery = "Select st_name, st_lastName, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
-                            st_postCode, st_citizenship, st_faculty, st_department FROM students where st_id = '$student_id_No'";
-    
+    $companu = $_SESSION["Company_Name"];
+
+    $sqlProfileInfoQuery = "SELECT students.st_id, internship_application.Internship_ID, Company_Name, Activity_Field, 
+		students.st_name, students.st_lastName, students.st_PhoneNumber, 
+        students.st_mailAdress, students.st_class, students.st_adress, students.st_city, students.st_town,
+                            students.st_postCode, students.st_citizenship, students.st_faculty, students.st_department, students.st_IS_info, students.st_password
+FROM internship_application
+INNER JOIN students ON internship_application.st_id=students.st_id where st_id = $student_id_No";
+
+
+
     if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
         while($row = $Info_Results->fetch_assoc())
         {
-
+            $student_id = $row["st_id"];
+            $Internship_ID = $row["Internship_ID"];
+            $Company_Name = $row["Company_Name"];
+            $Activity_Field = $row["Activity_Field"];
             $name = $row["st_name"];
             $st_lastName = $row["st_lastName"];
             $st_PhoneNumber = $row["st_PhoneNumber"];
@@ -43,21 +55,26 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
             $st_class = $row["st_class"];
             $st_adress = $row["st_adress"];
             $st_city = $row["st_city"];
+
             $st_town = $row["st_town"];
             $st_postCode = $row["st_postCode"];
             $st_citizenship = $row["st_citizenship"];
+
             $st_faculty = $row["st_faculty"];
             $st_department = $row["st_department"];
+            $st_IS_info = $row["st_IS_info"];
+
         }
     }
     //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
     //$row = $Info_Results->fetch_array();
-    
 
-    
-    $Info_Results->free();
+    $baglanti->close();
 
 
+
+    //Buraya inner joinli query getiricez
+    //daha sonrasında eğer staj başvurusu varsa yani application id mevcutsa tablo şeklinde durum kısmına göstericez.
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
@@ -723,7 +740,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height"><?php echo $_SESSION["ID"]; ?><i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height"><?php echo $name;?><i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -787,8 +804,8 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded avatar-110" alt="profile-image">
                                 </div>
                                 <div class="ml-3">
-                                    <h4 class="mb-1"><?php echo $name." ".$st_lastName; ?></h4>
-                                    <p class="mb-2"><?php echo $st_class.".Sınıf"?></p>
+                                    <h4 class="mb-1"><?php     echo $student_name_i; ?></h4>
+                                    <p class="mb-2"><?php echo $_SESSION["student_class"]. ".Sınıf"?></p>
                                 </div>
                             </div>
                             <p>
@@ -801,7 +818,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        <p class="mb-0"> <?php echo $st_city?> </p>
+                                        <p class="mb-0"> <?php echo $_SESSION["st_city"]."/".$_SESSION["st_town"] ?> </p>
                                     </div>
                                 </li>
                                 <li class="mb-2">
@@ -809,7 +826,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        <p class="mb-0"><?php echo $st_faculty." Fakültesi"?></p>
+                                        <p class="mb-0"><?php echo $_SESSION["st_faculty"]." Fakültesi"?></p>
                                     </div>
                                 </li>
                                 <li class="mb-2">
@@ -817,7 +834,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        <p class="mb-0"><?php echo $st_department.""?></p>
+                                        <p class="mb-0"><?php echo $_SESSION["st_department"]." Mühendisliği"?></p>
                                     </div>
                                 </li>
                                 <li class="mb-2">
@@ -825,7 +842,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
-                                        <p class="mb-0"><?php echo $st_PhoneNumber?></p>
+                                        <p class="mb-0"><?php echo $_SESSION["st_phoneNumber"]?></p>
                                     </div>
                                 </li>
                                 <li>
@@ -833,7 +850,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-3" height="16" width="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        <p class="mb-0"><?php echo $st_mailAdress?></p>
+                                        <p class="mb-0"><?php echo $_SESSION["student_mailAdress"] ?></p>
                                     </div>
                                 </li>
                             </ul>
@@ -863,12 +880,68 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                             <div class="profile-content tab-content">
 
                                 <div id="profile1" class="tab-pane fade active show">
-                                    <?php
-                                    echo "Herhangi bir staj/IME başvurunuz bulunmamaktadır.";
-                                    echo "";
 
-                                    ?>
+                                    <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
+                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                           aria-describedby="user-list-page-info">
+                                        <thead>
+                                        <tr class="ligth">
+                                            <th>Başvuru ID</th>
+                                            <th>Firma Adı</th>
+                                            <th>Firma Alanı</th>
+                                            <th>İşlem</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
+
+                                        <tr>
+                                            <?php
+                                            include('../vt.php');
+
+
+                                            $query = "SELECT Internship_ID, Company_Name, Activity_Field FROM internship_application where st_id = $student_id_No";
+
+
+
+                                            if ($result = $baglanti->query($query)) {
+                                                /* fetch associative array */
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $Internship_ID = $row["Internship_ID"];
+                                                    $Activity_Field = $row["Activity_Field"];
+                                                    $company_name = $row["Company_Name"];
+                                                    $st_name = $row["st_name"];
+                                                    $st_lastName = $row["st_lastName"];
+                                                    $st_PhoneNumber = $row["st_PhoneNumber"];
+                                                    $st_mailAdress = $row["st_mailAdress"];
+                                                    $st_class = $row["st_class"];
+                                                    $st_adress = $row["st_adress"];
+                                                    $st_city = $row["st_city"];
+                                                    $st_town = $row["st_town"];
+                                                    $st_postCode = $row["st_postCode"];
+                                                    $st_citizenship = $row["st_citizenship"];
+                                                    $st_faculty = $row["st_faculty"];
+                                                    $st_department = $row["st_department"];
+                                                    $st_IS_info = $row["st_IS_info"];
+
+                                                    echo '<tr> 
+                                            <td>'.$Internship_ID.'</td> 
+                                            <td>'.$company_name.'</td> 
+                                            <td>'.$Activity_Field.'</td> 
+                                            <td><input type="button" value="Başvuruyu Tamamla"></td>
+
+                                          
+ 
+                                        </tr>';
+                                                }
+                                                /* free result set */
+                                                $result->free();
+                                            }
+                                            ?>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div id="profile2" class="tab-pane fade">
                                     <?php

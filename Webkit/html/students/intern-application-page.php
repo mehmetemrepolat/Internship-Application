@@ -1,5 +1,6 @@
 <?php
 include('../vt.php');
+include('session.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,12 +20,63 @@ include('../vt.php');
     <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css">
     <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">  </head>
 <body class="  ">
-<!-- loader Start
+<!-- loader Start -->
+
+<?php
+include('../vt.php');
+
+session_start(); //oturum başlattık
+//oturumdaki bilgilerin doğruluğunu kontrol ediyoruz
+
+if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
+    //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
+    $student_id_No = $_SESSION["ID"];
+
+    $sqlProfileInfoQuery = "Select st_name, st_lastName, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
+                            st_postCode, st_citizenship, st_faculty, st_department, st_IS_info FROM students where st_id = '$student_id_No'";
+
+    if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
+        while($row = $Info_Results->fetch_assoc())
+        {
+
+            $name = $row["st_name"];
+            $st_lastName = $row["st_lastName"];
+            $st_PhoneNumber = $row["st_PhoneNumber"];
+            $st_mailAdress = $row["st_mailAdress"];
+            $st_class = $row["st_class"];
+            $st_adress = $row["st_adress"];
+            $st_city = $row["st_city"];
+            $st_town = $row["st_town"];
+            $st_postCode = $row["st_postCode"];
+            $st_citizenship = $row["st_citizenship"];
+            $st_faculty = $row["st_faculty"];
+            $st_department = $row["st_department"];
+            $st_IS_info = $row["st_IS_info"];
+        }
+    }
+    //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
+    //$row = $Info_Results->fetch_array();
+
+
+
+    $Info_Results->free();
+
+
+
+
+} else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
+    header("location:index.php");
+}else {
+
+    header("location:student-login.php");
+}
+
+?>
 <div id="loading">
       <div id="loading-center">
       </div>
 </div>
-loader END -->
+<!-- loader END -->
 <!-- Wrapper Start -->
 <div class="wrapper">
 
@@ -675,7 +727,7 @@ loader END -->
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height">Savannah Nguyen<i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height"><?php echo $student_id_No;?><i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -735,28 +787,28 @@ loader END -->
 
                                             <div class="checkbox form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="staj_1" id="checkbox1">
                                                 <label for="checkbox1">Staj-1</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
                                             </div>
                                             <div class="checkbox form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="staj_2" id="checkbox1">
                                                 <label for="checkbox1">Staj-2</label>
                                             </div>
                                             <div class="checkbox form-group col-md-6">
                                                 <label for="mobno">İş Günü:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
+                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="work_day" placeholder="İl">
                                             </div>
                                             <div class="checkbox form-group col-md-6">
                                                 <label for="mobno">Başlama Tarihi:</label>
-                                                <input type="date" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
+                                                <input type="date" formmethod="post" class="form-control" id="mobno" name="start_date" placeholder="İl">
                                             </div>
 
                                             <div class="checkbox form-group col-md-12">
                                                 <label></label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="saturday_working" id="checkbox1">
                                                 <label for="checkbox1">Cumartesi Çalışıyor</label>
                                             </div>
 
@@ -767,14 +819,14 @@ loader END -->
 
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="health_care1" id="checkbox1">
                                                 <label for="checkbox1">Evet</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="health_care0" id="checkbox1">
                                                 <label for="checkbox1">Hayır</label>
                                             </div>
                                             <div class="form-group col-md-12">
@@ -784,14 +836,14 @@ loader END -->
 
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="GSS_1" id="checkbox1">
                                                 <label for="checkbox1">Evet</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="GSS_0" id="checkbox1">
                                                 <label for="checkbox1">Hayır</label>
                                             </div>
                                             <div class="form-group col-md-12">
@@ -801,14 +853,14 @@ loader END -->
 
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="25_yearOld1" id="checkbox1">
                                                 <label for="checkbox1">Evet</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="25_yearOld0" id="checkbox1">
                                                 <label for="checkbox1">Hayır</label>
                                             </div>
 
@@ -859,7 +911,7 @@ loader END -->
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="cname">E-Posta:</label>
-                                                <input type="text" formmethod="post" class="form-control" name="class_no" id="Company_mailAdress" placeholder="E-Posta">
+                                                <input type="text" formmethod="post" class="form-control" name="Company_mailAdress" id="Company_mailAdress" placeholder="E-Posta">
                                             </div>
                                             <div></div>
 
@@ -869,13 +921,13 @@ loader END -->
                                             <div class="checkbox d-inline-block mr-4">
                                             </div>
                                             <div class="checkbox d-inline-block mr-4">
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="engineer" id="checkbox1">
                                                 <label for="checkbox1">Mühendis</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="technic_teacher" id="checkbox2">
                                                 <label for="checkbox1">Teknik Öğretmen</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="DR" id="checkbox3">
                                                 <label for="checkbox1">Hekim</label>
                                             </div>
                                             <div class="form-group col-md-12">
@@ -884,10 +936,10 @@ loader END -->
                                             <div class="checkbox d-inline-block mr-4">
                                             </div>
                                             <div class="checkbox d-inline-block mr-4">
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="Law_3308_1" id="checkbox1">
                                                 <label for="checkbox1">Evet</label>
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                                <input type="checkbox" class="checkbox-input" name="Law_3308_0" id="checkbox1">
                                                 <label for="checkbox1">Hayır</label>
                                             </div>
                                         </div>
@@ -898,34 +950,80 @@ loader END -->
 
                                         <?php
 
+                                        
                                         //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
                                         if ($_POST) {
 
-                                            $faculty = $_REQUEST['faculty'];
-                                            $department = $_REQUEST['department'];
-                                            $first_name= $_REQUEST['first_name'];
-                                            $last_name = $_REQUEST['last_name'];
-                                            $tel_no = $_REQUEST['tel_no'];
-                                            $tc_no = $_REQUEST['tc_no'];
-                                            $mail_adress = $_REQUEST['mail_adress'];
-                                            $class_no = $_REQUEST['class_no'];
-                                            $student_adress = $_REQUEST['student_adress'];
-                                            $city_name = $_REQUEST['city_name'];
-                                            $town_name = $_REQUEST['town_name'];
-                                            $zip_code = $_REQUEST['zip_code'];
-                                            $citizen_ship = $_REQUEST['citizen_ship'];
-                                            $response_teacher = $_REQUEST['response_teacher'];
-                                            $user_role = $_REQUEST['kullanici_rolu'];
-                                            $temp_pass = password_hash(123, PASSWORD_DEFAULT);
+                                            if (isset($_REQUEST['staj_2'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $staj = 2;
+                                            }
+                                            if (isset($_REQUEST['staj_1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $staj = 1;
+                                            }
+                                            $work_day = $_REQUEST['work_day'];
+
+                                            $start_date = $_REQUEST['start_date'];
+
+                                            if (isset($_REQUEST['health_care1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $health_care = 1;
+                                            } else {
+                                                $health_care = 0;
+                                            }
+                                            if (isset($_REQUEST['GSS_1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $GSS = 1;
+                                            } else {
+                                                $GSS = 0;
+                                            }
+                                            if (isset($_REQUEST['25_yearOld1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $yearOld_25 = 1;
+                                            } else {
+                                                $yearOld_25 = 0;
+                                            }
+                                            $Company_Name = $_REQUEST['Company_Name'];
+                                            $Activity_Field = $_REQUEST['Activity_Field'];
+                                            $Company_adress = $_REQUEST['Company_adress'];
+                                            $Company_city = $_REQUEST['Company_city'];
+                                            $Company_town = $_REQUEST['Company_city'];
+                                            $Company_postCode = $_REQUEST['Company_postCode'];
+                                            $Company_PhoneNumber = $_REQUEST['Company_PhoneNumber'];
+                                            $Company_FAX = $_REQUEST['Company_FAX'];
+                                            $Company_mailAdress = $_REQUEST['Company_mailAdress'];
+
+
+                                            if (isset($_REQUEST['engineer'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $Responsible_Title = 1;
+                                            }
+                                            if (isset($_REQUEST['technic_teacher'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $Responsible_Title = 2;
+                                            }
+                                            if (isset($_REQUEST['DR'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $Responsible_Title = 3;
+                                            }
+                                            if (isset($_REQUEST['Law_3308_1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
+                                                $Law_3308 = 1;
+                                            } else {
+                                                $Law_3308 = 0;
+                                            }
+
+
+                                            $Company_ID = substr(md5($Company_Name), 0, 5);
+                                            //Company_ID MD5'in ilk 5 hanesi
+                                            $Internship_ID = $student_id_No."_".$st_IS_info."_".$staj;
 
                                             $sql_query = "
-                                                INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID, st_faculty, st_department, st_password)
-                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher', '$faculty', '$department', '$temp_pass');
-                                                ";
+                                              INSERT INTO internship_application (st_id, Company_ID, Internship_ID, starting_date, finish_date, Company_Name,
+                                                                                  working_day, saturday_working, Activity_Field, Company_adress, Company_city,
+                                                                                  Company_town, Company_postCode, Company_PhoneNumber, Company_FAX, Company_mailAdress,
+                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308)
+                                               VALUES ('$student_id_No', '$Company_ID', '$Internship_ID', '$start_date', '2022-12-21', '$Company_Name',
+                                                       '$work_day', '1','$Activity_Field', '$Company_adress', '$Company_city', '$Company_town', '$Company_postCode',
+                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','$Law_3308');";
 
-                                            $baglanti->query($sql_query);
 
-
+                                            if (!$baglanti -> query($sql_query) ) {
+                                                echo("Error description: " . $baglanti -> error);
+                                            }
+                                            $baglanti -> close();
 
                                         }
                                         ?>
