@@ -866,7 +866,7 @@ FROM internship_application where st_id = $student_id_No";
 
 
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM students where st_Teacher_ID = $teacher_id_no";
+                                            $query = "SELECT * FROM students";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -942,7 +942,7 @@ FROM internship_application where st_id = $student_id_No";
 
 
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM internship_application where st_Teacher_ID = $teacher_id_no";
+                                            $query = "SELECT * FROM internship_application";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -969,8 +969,21 @@ FROM internship_application where st_id = $student_id_No";
                                                     echo '" class="button">Başvuruyu Görüntüle</button>
                                             </td> 
                                             <td>
-                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Onayla</button>
-                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post" class="btn btn-danger">Reddet</button>
+                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="kbl">Kabul Et</button>
+                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-danger mt-2" name="reddet">Reddet</button>';
+
+                                                    if(isset($_POST['kbl'])) {
+
+                                                        echo "Tamam";
+
+                                                    }
+
+                                                    if(isset($_POST['reddet'])) {
+
+                                                        echo "Tamam değil";
+                                                    }
+
+                                                    echo'
                                             </td>
                                         </tr>';
                                                 }
@@ -989,7 +1002,7 @@ FROM internship_application where st_id = $student_id_No";
                                             if (!$baglanti -> query($sql_query) ) {
                                                 echo("Error description: " . $baglanti -> error);
                                             }
-                                            else{echo "Tamamdır"; }
+                                            else{echo ""; }
                                             $baglanti -> close();
                                         }
                                         ?>
