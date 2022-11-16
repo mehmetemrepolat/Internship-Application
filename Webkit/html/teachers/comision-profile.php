@@ -763,7 +763,7 @@ FROM internship_application where st_id = $student_id_No";
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height"><?php echo $name;?><i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height"><?php echo $_SESSION["Teacher_Name"];?><i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -841,24 +841,25 @@ FROM internship_application where st_id = $student_id_No";
                             </ul>
                             <div class="profile-content tab-content">
 
+
                                 <div id="profile1" class="tab-pane fade active show">
                                     <form name="application" method="post">
 
-                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
-                                           aria-describedby="user-list-page-info">
-                                        <thead>
-                                        <tr class="ligth">
-                                            <th>Numarası</th>
-                                            <th>Adı</th>
-                                            <th>Soy Adı</th>
-                                            <th>Sınıf</th>
-                                            <th>Fakülte</th>
-                                            <th>Bölüm</th>
-                                            <th>Telefon Numarası</th>
-                                            <th>Mail Adresi</th>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>Numarası</th>
+                                                <th>Adı</th>
+                                                <th>Soy Adı</th>
+                                                <th>Sınıf</th>
+                                                <th>Fakülte</th>
+                                                <th>Bölüm</th>
+                                                <th>Telefon Numarası</th>
+                                                <th>Mail Adresi</th>
 
-                                        </tr>
-                                        </thead>
+                                            </tr>
+                                            </thead>
 
                                             <?php
                                             include('../vt.php');
@@ -879,7 +880,7 @@ FROM internship_application where st_id = $student_id_No";
                                                     $st_department = $row["st_department"];
                                                     $st_IS_info = $row["st_IS_info"];
 
-                                                        echo '
+                                                    echo '
                                         
                                         <tbody>
                                         <tr>
@@ -896,14 +897,14 @@ FROM internship_application where st_id = $student_id_No";
                                             
                                            
                                         </tr>';
-                                                    }
                                                 }
-                                                /* free result set */
-                                                $result->free();
+                                            }
+                                            /* free result set */
+                                            $result->free();
                                             ?>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                         <?php
 
                                         if ($_POST) {
@@ -916,8 +917,8 @@ FROM internship_application where st_id = $student_id_No";
                                             $baglanti -> close();
                                         }
                                         ?>
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
                                 <div id="profile2" class="tab-pane fade">
                                     <form name="application" method="post">
 
@@ -994,6 +995,9 @@ FROM internship_application where st_id = $student_id_No";
                                         ?>
                                     </form>
                                 </div>
+
+
+
                                 <div id="profile3" class="tab-pane fade">
                                 </div>
                                 <div id="profile4" class="tab-pane fade">

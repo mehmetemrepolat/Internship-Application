@@ -70,16 +70,12 @@ session_start();
                                             include '../vt.php';
                                             if($_POST)
                                             {
+                                                $mail = $_REQUEST['mail'];
+                                                $password = $_REQUEST['password'];
+                                                $password_hash = password_hash($password, PASSWORD_DEFAULT);
                                                 if(! empty($_POST["comision"])){
 
-                                                    $mail = $_REQUEST['mail'];
-                                                    $password = $_REQUEST['password'];
-                                                    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
                                                     $sql_query1 = "SELECT * from teachers_informations where Teacher_mail='$mail' and commission_memberShip='1' and Teacher_password='$password'";
-
-
-
                                                     $qqq1 = $baglanti->query($sql_query1);
                                                     $active = $row['active'];
                                                     $count1 = mysqli_num_rows($qqq1);
@@ -92,19 +88,34 @@ session_start();
                                                         $_SESSION["Oturum"] = "6788"; //oturum oluşturma
                                                         $_SESSION["Teacher_mail"] = "$mail";
 
+
+                                                        $QUERY = $baglanti->query($sql_query1);
+                                                        $RESULT = $QUERY -> fetch_array();
+
+                                                        $teacher_name = $RESULT['Teacher_Name'];
+                                                        $_SESSION["Teacher_Name"] = "$teacher_name";
+                                                        $teacher_surname = $RESULT['Teacher_SurName'];
+                                                        $_SESSION["Teacher_SurName"] = "$teacher_surname";
+
+                                                        $teacher_number = $RESULT['Teacher_Number'];
+                                                        $_SESSION["Teacher_Number"] = "$teacher_number";
+
+                                                        $teacher_id = $RESULT['Teacher_ID'];
+                                                        $_SESSION["Teacher_ID"] = "$teacher_id";
+
+                                                        $teacher_id1 = $RESULT['Teacher_ID'];
+                                                        $_SESSION["Teacher_ID_C"] = "$teacher_id";
+
+                                                        $teacher_com = $RESULT['commission_memberShip'];
+                                                        $_SESSION["teacher_com"] = "$teacher_com";
+
                                                         header("location:comision-profile.php"); //sayfa yönlendirme
-
-
-
                                                     }
                                                     else{
                                                         echo "Kullanıcı Adı/Parola yanlış!";
                                                     }
                                                 }
                                                 else{
-                                                    $mail = $_REQUEST['mail'];
-                                                    $password = $_REQUEST['password'];
-                                                    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
                                                     $sql_query = "SELECT * from teachers_informations where Teacher_mail='$mail' and Teacher_password='$password' and commission_memberShip='0'";
 
