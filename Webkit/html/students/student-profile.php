@@ -888,7 +888,7 @@ FROM internship_application where st_id = $student_id_No";
                                     <a class="nav-link active show" data-toggle="pill" href="#profile1" role="tab" aria-selected="false">Durum</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Kişisel Bilgilerim</a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Staj/IME Durumu</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Staj Raporu Yükleme</a>
@@ -928,12 +928,16 @@ FROM internship_application where st_id = $student_id_No";
                                                     $st_department = $row["st_department"];
                                                     $st_IS_info = $row["st_IS_info"];
                                                 }
+                                                $result->free();
 
-                                                    if($application_complete == '0');
+                                                $app_comp = $application_complete;
+
+                                                if($app_comp == '0')
                                                     {
-                                                        echo '';
+                                                        echo 'Herhangi bir başvurunuz bulunmamaktadır.';
+                                                        echo 'Başvuru yapmak için <a href="intern-application-page.php">tıklayınız</a> .';
                                                     }
-                                                    if($application_complete == '1'){
+                                                    if($app_comp == '1'){
                                                         echo '
                                         <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
                                         <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
@@ -958,9 +962,18 @@ FROM internship_application where st_id = $student_id_No";
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Tamamla</button>
                                             </td>
                                         </tr>';
+                                                        if ($_POST) {
+
+                                                            $sql_query = "UPDATE internship_application SET application_complete = '2' WHERE st_id = '$student_id_No';";
+                                                            if (!$baglanti -> query($sql_query) )
+                                                            {
+                                                                echo("Error description: " . $baglanti -> error);
+                                                            }
+                                                            else{echo "Tamamdır"; }
+                                                            $baglanti -> close();}
                                                     }
 
-                                                    elseif ($application_complete == '2');
+                                                    if ($app_comp == '2')
                                                     {
                                                         echo '
                                         <a>Başvurunuz değerlendirme aşamasındadır.</a>
@@ -972,7 +985,6 @@ FROM internship_application where st_id = $student_id_No";
                                             <th>Firma Adı</th>
                                             <th>Firma Alanı</th>
                                             <th>Durum</th>
-                                            
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -982,38 +994,14 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$company_name.'</td> 
                                             <td>'.$Activity_Field.'</td>
                                             <td>Değerlendiriliyor</td> 
-                                           
                                         </tr>';
-                                                    }
-
-
-                                                /* free result set */
-                                                $result->free();
-                                            }
-
+                                                    }}
                                             ?>
-
                                         </tr>
                                         </tbody>
-                                    </table>
-                                        <?php
-
-                                        if ($_POST) {
-
-                                            $sql_query = "UPDATE internship_application SET application_complete = '1' WHERE st_id = '$student_id_No';";
-                                            if (!$baglanti -> query($sql_query) ) {
-                                                echo("Error description: " . $baglanti -> error);
-                                            }
-                                            else{echo "Tamamdır"; }
-                                            $baglanti -> close();
-                                        }
-
-
-
-                                        ?>
+                                        </table>
 
                                     </form>
-
                                 </div>
                                 <div id="profile2" class="tab-pane fade">
                                     <?php
@@ -1022,7 +1010,6 @@ FROM internship_application where st_id = $student_id_No";
 
                                     ?>
                                 </div>
-
                                 <div id="profile3" class="tab-pane fade">
 
 
@@ -1045,6 +1032,20 @@ FROM internship_application where st_id = $student_id_No";
 
                                 </div>
                                 <div id="profile4" class="tab-pane fade">
+                                    <h3>Staj/IME Raporları Yükleme</h3>
+                                    <hr>
+                                                    <form action="uploader.php" method="post" enctype="multipart/form-data">
+                                                    <html>
+                                                    <head></head>
+                                                    <body>
+                                                    <p> <input type="file"  name="fileToUpload2" />
+                                                    <input class="btn btn-outline-secondary" id="rapor2_pdf" type="submit" value="Staj Raporu Yükle">
+                                                    <p> <input type="file"  name="fileToUpload3" />
+                                                        <input class="btn btn-outline-secondary" id="rapor3_pdf" type="submit" value="Devlet Katkı Talep Formu Yükle">
+                                                    </body>
+                                                    </html>
+                                                    </form>
+
                                 </div>
 
 

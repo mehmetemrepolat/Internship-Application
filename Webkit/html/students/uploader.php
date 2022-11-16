@@ -23,8 +23,25 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
 
 //seassion başlatıp öğrenci numarasını değişkene atayacağız
 if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], 'Files/'.$is_id.'.pdf')) {
+    echo "Dosya Yüklendi!";
+}
+else
+{
+    echo "Hata, Dosya Yüklenemedi!";
+}
+
+//Staj Raporu
+if(move_uploaded_file($_FILES['fileToUpload2']['tmp_name'], 'Files/'.$is_id.'_Rapor.pdf')) {
+    echo "Dosya Yüklendi!";
+}
+else
+{
+    echo "Hata, Dosya Yüklenemedi!";
+}
 
 
+//Devlet Katkı Talep Formu
+if(move_uploaded_file($_FILES['fileToUpload3']['tmp_name'], 'Files/'.$is_id.'_KatkıTalep.pdf')) {
     echo "Dosya Yüklendi!";
 }
 else
