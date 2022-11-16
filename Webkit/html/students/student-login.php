@@ -79,7 +79,7 @@ session_start();
                                                 $sqlProfileInfoQuery = "SELECT students.st_id, internship_application.Internship_ID, Company_Name, Activity_Field, 
 		students.st_name, students.st_lastName, students.st_PhoneNumber, students.st_TC_No,
         students.st_mailAdress, students.st_class, students.st_adress, students.st_city, students.st_town,
-                            students.st_postCode, students.st_citizenship, students.st_faculty, students.st_department, students.st_IS_info, students.st_password
+                            students.st_postCode, students.st_citizenship, students.st_Teacher_ID, students.st_faculty, students.st_department, students.st_IS_info, students.st_password
 FROM internship_application
 INNER JOIN students ON internship_application.st_id=students.st_id where st_password = '$password'";
 
@@ -121,6 +121,8 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_pass
                                                     $_SESSION["st_postCode"] = "$st_postCode";
                                                     $st_citizenship = $RESULT['st_citizenship'];
                                                     $_SESSION["st_citizenship"] = "$st_citizenship";
+                                                    $st_Teacher_ID = $RESULT['st_Teacher_ID'];
+                                                    $_SESSION["st_Teacher_ID"] = "$st_Teacher_ID";
                                                     $st_faculty = $RESULT['st_faculty'];
                                                     $_SESSION["st_faculty"] = "$st_faculty";
                                                     $st_department = $RESULT['st_department'];

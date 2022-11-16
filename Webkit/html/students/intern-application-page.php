@@ -1005,6 +1005,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                                 $Law_3308 = 0;
                                             }
 
+                                            $st_teacher_id = $_SESSION["st_Teacher_ID"];
 
                                             $Company_ID = substr(md5($Company_Name), 0, 5);
                                             //Company_ID MD5'in ilk 5 hanesi
@@ -1014,10 +1015,11 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                               INSERT INTO internship_application (st_id, Company_ID, Internship_ID, starting_date, finish_date, Company_Name,
                                                                                   working_day, saturday_working, Activity_Field, Company_adress, Company_city,
                                                                                   Company_town, Company_postCode, Company_PhoneNumber, Company_FAX, Company_mailAdress,
-                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308, application_complete)
+                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308, application_complete, st_Teacher_ID)
                                                VALUES ('$student_id_No', '$Company_ID', '$Internship_ID', '$start_date', '2022-12-21', '$Company_Name',
                                                        '$work_day', '1','$Activity_Field', '$Company_adress', '$Company_city', '$Company_town', '$Company_postCode',
-                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','$Law_3308', 0);";
+                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','$Law_3308', 0, '$st_teacher_id');";
+
 
 
                                             if (!$baglanti -> query($sql_query) ) {

@@ -840,10 +840,12 @@ FROM internship_application where st_id = $student_id_No";
                                 </li>
                             </ul>
                             <div class="profile-content tab-content">
+
                                 <div id="profile1" class="tab-pane fade active show">
                                     <form name="application" method="post">
 
-                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid" aria-describedby="user-list-page-info">
+                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                           aria-describedby="user-list-page-info">
                                         <thead>
                                         <tr class="ligth">
                                             <th>Numarası</th>
@@ -860,6 +862,8 @@ FROM internship_application where st_id = $student_id_No";
 
                                             <?php
                                             include('../vt.php');
+
+
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
                                             $query = "SELECT * FROM students where st_Teacher_ID = $teacher_id_no";
                                             if ($result = $baglanti->query($query)) {
@@ -874,6 +878,7 @@ FROM internship_application where st_id = $student_id_No";
                                                     $st_faculty = $row["st_faculty"];
                                                     $st_department = $row["st_department"];
                                                     $st_IS_info = $row["st_IS_info"];
+
                                                         echo '
                                         
                                         <tbody>
@@ -885,8 +890,11 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$st_class.'</td>
                                             <td>'.$st_faculty.'</td>
                                             <td>'.$st_department.'</td>
-                                            <td>'.$st_PhoneNumber.'</td>
-                                            <td>'.$st_mailAdress.'</td>
+                                            <td>'.$st_department.'</td>
+                                            <td>'.$st_department.'</td>
+                                            
+                                            
+                                           
                                         </tr>';
                                                     }
                                                 }
@@ -907,26 +915,22 @@ FROM internship_application where st_id = $student_id_No";
                                             else{echo "Tamamdır"; }
                                             $baglanti -> close();
                                         }
-
-
-
                                         ?>
-
                                 </form>
-
-                                </div>
-
+                            </div>
                                 <div id="profile2" class="tab-pane fade">
                                     <form name="application" method="post">
 
-                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid" aria-describedby="user-list-page-info">
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
                                             <thead>
                                             <tr class="ligth">
-                                                <th>Başvuru ID</th>
-                                                <th>Öğrenci ID</th>
-                                                <th>Firma Adı</th>
-                                                <th>Firma Alanı</th>
-                                                <th>Başvuru Görüntüle/İndir</th>
+                                                <th>Öğrenci Numarası</th>
+                                                <th>Staj Dönemi</th>
+                                                <th>Kurum Adı</th>
+                                                <th>Başlangıç Tarihi</th>
+                                                <th>Bitiş Tarihi</th>
+                                                <th>Görüntüle</th>
                                                 <th>İşlem</th>
 
                                             </tr>
@@ -934,33 +938,42 @@ FROM internship_application where st_id = $student_id_No";
 
                                             <?php
                                             include('../vt.php');
+
+
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
                                             $query = "SELECT * FROM internship_application where st_Teacher_ID = $teacher_id_no";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
                                                     $st_id = $row["st_id"];
-                                                    $st_name = $row["st_name"];
-                                                    $st_lastName = $row["st_lastName"];
-                                                    $st_PhoneNumber = $row["st_PhoneNumber"];
-                                                    $st_mailAdress = $row["st_mailAdress"];
-                                                    $st_class = $row["st_class"];
-                                                    $st_faculty = $row["st_faculty"];
-                                                    $st_department = $row["st_department"];
-                                                    $st_IS_info = $row["st_IS_info"];
+                                                    $Intern_ID = $row["Internship_ID"];
+                                                    $Company_Name = $row["Company_Name"];
+                                                    $starting_date = $row["starting_date"];
+                                                    $finish_date = $row["finish_date"];
+
                                                     echo '
                                         
                                         <tbody>
                                         <tr>
                                         <tr> 
                                              <td>'.$st_id.'</td> 
-                                            <td>'.$st_name.'</td> 
-                                            <td>'.$st_lastName.'</td>
-                                            <td>'.$st_class.'</td>
-                                            <td>'.$st_faculty.'</td>
-                                            <td>'.$st_department.'</td>
-                                            <td>'.$st_PhoneNumber.'</td>
-                                            <td>'.$st_mailAdress.'</td>
+                                            <td>'.$Intern_ID.'</td> 
+                                            <td>'.$Company_Name.'</td>
+                                            <td>'.$starting_date.'</td>
+                                            <td>'.$finish_date.'</td>
+                                            <td>
+                                                <a href="Intern-Application-Form.php" class="button">Başvuruyu Görüntüle</button>
+                                            </td> 
+                                            <td>
+                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Onayla</button>
+                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post" class="btn btn-danger">Reddet</button>
+
+
+                                            </td>
+                                            
+                                            
+                                            
+                                           
                                         </tr>';
                                                 }
                                             }
@@ -981,13 +994,8 @@ FROM internship_application where st_id = $student_id_No";
                                             else{echo "Tamamdır"; }
                                             $baglanti -> close();
                                         }
-
-
-
                                         ?>
-
                                     </form>
-
                                 </div>
                                 <div id="profile3" class="tab-pane fade">
                                 </div>

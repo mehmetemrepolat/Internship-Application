@@ -891,29 +891,21 @@ FROM internship_application where st_id = $student_id_No";
                                     <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Kişisel Bilgilerim</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Eğitim</a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Staj Raporu Yükleme</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Deneyimlerim</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a id="view-btn" class="nav-link" data-toggle="pill" href="#profile5" role="tab" aria-selected="true">Hakkımda</a>
-                                </li>
+
                             </ul>
                             <div class="profile-content tab-content">
-                                <form name="application" method="post">
 
                                 <div id="profile1" class="tab-pane fade active show">
+                                    <form name="application" method="post">
 
-
-                                            <?php
+                                    <?php
                                             include('../vt.php');
-
-
                                             $query = "SELECT Internship_ID, Company_Name, Activity_Field, application_complete FROM internship_application where st_id = $student_id_No";
-
-
-
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -935,7 +927,12 @@ FROM internship_application where st_id = $student_id_No";
                                                     $st_faculty = $row["st_faculty"];
                                                     $st_department = $row["st_department"];
                                                     $st_IS_info = $row["st_IS_info"];
+                                                }
 
+                                                    if($application_complete == '0');
+                                                    {
+                                                        echo '';
+                                                    }
                                                     if($application_complete == '1'){
                                                         echo '
                                         <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
@@ -962,10 +959,8 @@ FROM internship_application where st_id = $student_id_No";
                                             </td>
                                         </tr>';
                                                     }
-                                                    if($application_complete == '0');
-                                                    {
-                                                    }
-                                                    if($application_complete == '2');
+
+                                                    elseif ($application_complete == '2');
                                                     {
                                                         echo '
                                         <a>Başvurunuz değerlendirme aşamasındadır.</a>
@@ -991,7 +986,7 @@ FROM internship_application where st_id = $student_id_No";
                                         </tr>';
                                                     }
 
-                                                }
+
                                                 /* free result set */
                                                 $result->free();
                                             }
@@ -1017,10 +1012,9 @@ FROM internship_application where st_id = $student_id_No";
 
                                         ?>
 
+                                    </form>
 
                                 </div>
-                                </form>
-
                                 <div id="profile2" class="tab-pane fade">
                                     <?php
                                     echo "Anlık olarak yaptığı kurumdaki stajın bilgilerini.";
@@ -1028,12 +1022,31 @@ FROM internship_application where st_id = $student_id_No";
 
                                     ?>
                                 </div>
+
                                 <div id="profile3" class="tab-pane fade">
+
+
+                                    <h5>Staj/IME Başvuru Yükleme</h5>
+
+                                        <?php
+                                            echo '
+                                                    <form action="uploader.php" method="post" enctype="multipart/form-data">
+                                                    <html>
+                                                    <head></head>
+                                                    <body>
+                                                    <p> <input type="file"  name="fileToUpload" />
+                                                    <input class="btn btn-outline-secondary" id="rapor1_pdf" type="submit" value="Rapor Yükle">
+                                                    </body>
+                                                    </html>
+                                                    </form>';
+                                        ?>
+
+
+
                                 </div>
                                 <div id="profile4" class="tab-pane fade">
                                 </div>
-                                <div id="profile5" class="tab-pane fade">
-                                </div>
+
 
                             </div>
                         </div>
