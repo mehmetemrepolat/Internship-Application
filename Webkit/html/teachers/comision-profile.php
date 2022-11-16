@@ -25,7 +25,7 @@ include('../vt.php');
 session_start(); //oturum başlattık
 //oturumdaki bilgilerin doğruluğunu kontrol ediyoruz
 
-if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
+if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6788") {
     //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
     $student_id_No = $_SESSION["ID"];
     $student_name_i = $_SESSION["NAME"];
