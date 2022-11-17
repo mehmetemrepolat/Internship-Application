@@ -838,10 +838,7 @@ include('../vt.php');
                                     <label for="pno">Vatandaşlık:</label>
                                     <input type="text"  formmethod="post" class="form-control" id="pno" name="citizen_ship" placeholder="Vatandaşlık">
                                  </div>
-                                  <div class="form-group col-md-12">
-                                    <label for="city">Danışman Öğretmen:</label>
-                                    <input type="text" formmethod="post" class="form-control" id="city" name="response_teacher" placeholder="Danışman Öğretmen">
-                                 </div>
+                                  
                               </div>
                               <hr>
 
@@ -872,11 +869,12 @@ include('../vt.php');
 
                                   $sql_query = "
                                                 INSERT INTO students (st_name, st_lastName, st_TC_No, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town, st_postCode, st_citizenship, st_Teacher_ID, st_faculty, st_department, st_password)
-                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'$response_teacher', '$faculty', '$department', '$temp_pass');
+                                                VALUES ('$first_name', '$last_name', '$tc_no', '$tel_no', '$mail_adress', '$class_no', '$student_adress', '$city_name', '$town_name', '$zip_code','$citizen_ship' ,'0', '$faculty', '$department', '123');
                                                 ";
 
-                                  $baglanti->query($sql_query);
-
+                                   if (!$baglanti -> query($sql_query)) {
+                                       echo("Error description: " . $baglanti -> error);
+                                   }
 
 
                                }

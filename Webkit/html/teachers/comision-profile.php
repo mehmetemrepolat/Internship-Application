@@ -840,12 +840,7 @@ FROM internship_application where st_id = $student_id_No";
                                 </li>
                             </ul>
                             <div class="profile-content tab-content">
-
-
-
-
-
-
+                                
                                 <div id="profile1" class="tab-pane fade active show">
                                     <form name="application" method="post">
                                         <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
@@ -874,12 +869,10 @@ FROM internship_application where st_id = $student_id_No";
 
                                                     echo '<tbody><tr><tr> 
                                             <td>'.$st_id.'</td> <td>'.$st_name.'</td> <td>'.$st_lastName.'</td><td>'.$st_class.'</td>
-                                            <td>'.$st_faculty.'</td><td>'.$st_department.'</td><td>'.$st_department.'</td><td>'.$st_department.'</td>
+                                            <td>'.$st_faculty.'</td><td>'.$st_department.'</td><td>'.$st_PhoneNumber.'</td><td>'.$st_mailAdress.'</td>
                                         </tr>';}}
                                             $result->free(); ?></tr></tbody></table>
                                     </form></div>
-
-
 
 
                                 <div id="profile2" class="tab-pane fade">
@@ -908,7 +901,7 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$Company_Name.'</td>
                                             <td>'.$starting_date.'</td>
                                             <td>'.$finish_date.'</td>
-                                            <td><a href="../students/Files/'.$Intern_ID.'.pdf';
+                                            <td><a href="../students/Files/'.$st_id."_InternApp.pdf";
                                                     echo '" class="button">Başvuruyu Görüntüle</button></td><td>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="kbl">Kabul Et</button>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-danger mt-2" name="reddet">Reddet</button>';
@@ -922,15 +915,10 @@ FROM internship_application where st_id = $student_id_No";
                                                         $baglanti->close();}echo'</td></tr>';}}
                                             $result->free(); ?>
                                             </tr></tbody></table>
-                                        <?php
-                                        if ($_POST) {
-                                            $sql_query = "UPDATE internship_application SET application_complete = '1' WHERE st_id = '$student_id_No';";
-                                            if (!$baglanti -> query($sql_query) ) {
-                                                echo("Error description: " . $baglanti -> error);} else{echo ""; }
-                                            $baglanti -> close();}?>
-                                    </form></div>
 
-
+                                    </form>
+                                
+                                </div>
 
 
                                 <div id="profile3" class="tab-pane fade">
@@ -955,7 +943,7 @@ FROM internship_application where st_id = $student_id_No";
                                         <?php
                                         include('../vt.php');
                                         $teacher_id_no = $_SESSION["Teacher_ID"];
-                                        $query = "SELECT * FROM internship_application where application_complete = '3'";
+                                        $query = "SELECT * FROM internship_application where application_complete = '4'";
                                         if ($result = $baglanti->query($query)) {
                                             /* fetch associative array */
                                             while ($row = $result->fetch_assoc()) {
@@ -968,14 +956,16 @@ FROM internship_application where st_id = $student_id_No";
                                                       <td>'.$st_id.'</td> <td>'.$Intern_ID.'</td> <td>'.$Company_Name.'</td><td>'.$starting_date.'</td>
                                                       <td></td>';
                                                 echo '<td>'.$finish_date.'</td> 
-                                            <td><a href="intern-application-page.php">Rapor</a><br /><a href="intern-application-page.php">Devlet Katkı Formu</a></td>
+                                            <td><a href="../students/Files/';
+                                                echo $Intern_ID.'.pdf';
+                                                echo '">Rapor</a><br /></td>
                                             <td>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="Intern_kbl">Kabul Et</button>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-danger mt-2" name="Intern_reddet">Reddet</button>';
 
 
                                                 if(isset($_POST['Intern_kbl'])) {
-                                                    $onayQuery = "UPDATE internship_application SET application_complete = '4' WHERE `Internship_ID` = '$Intern_ID'";
+                                                    $onayQuery = "UPDATE internship_application SET application_complete = '5' WHERE `Internship_ID` = '$Intern_ID'";
                                                     $baglanti->query($onayQuery);
                                                     $baglanti->close();}
                                                 if(isset($_POST['Intern_reddet'])) {
@@ -997,7 +987,6 @@ FROM internship_application where st_id = $student_id_No";
                                     </form>
                                 </div>
 
-
                                 
                                 <div id="profile4" class="tab-pane fade">
 
@@ -1015,7 +1004,7 @@ FROM internship_application where st_id = $student_id_No";
                                             <?php
                                             include('../vt.php');
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM internship_application where application_complete = '4' and st_Teacher_ID = '0'";
+                                            $query = "SELECT * FROM internship_application where application_complete = '5' and st_Teacher_ID = '0'";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -1049,6 +1038,8 @@ FROM internship_application where st_id = $student_id_No";
 
 
                                 </div>
+
+
                                 <div id="profile5" class="tab-pane fade">
                                     <form name="application" method="post">
 

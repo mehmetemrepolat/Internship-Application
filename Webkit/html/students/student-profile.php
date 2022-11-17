@@ -894,14 +894,27 @@ FROM internship_application where st_id = $student_id_No";
                                     <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Staj Raporu Yükleme</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Deneyimlerim</a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Notlarım</a>
                                 </li>
 
                             </ul>
                             <div class="profile-content tab-content">
 
+
                                 <div id="profile1" class="tab-pane fade active show">
-                                    <form name="application" method="post">
+                                    <form name="application" method="post"
+                                          
+                                          <?php
+                                          if ( file_exists( "Files/".$student_id_No."_InternApp.pdf" ) ) {
+                                             echo ">";
+                                          }
+
+else{
+    echo "action='uploader.php' enctype='multipart/form-data'>";
+}
+                                          ?>
+                                          
+                                          
 
                                     <?php
                                             include('../vt.php');
@@ -932,10 +945,10 @@ FROM internship_application where st_id = $student_id_No";
 
                                                 $app_comp = $application_complete;
 
-                                                if($app_comp == '0')
+                                                if($app_comp != '0')
                                                     {
-                                                        echo 'Herhangi bir başvurunuz bulunmamaktadır.';
-                                                        echo 'Başvuru yapmak için <a href="intern-application-page.php">tıklayınız</a> .';
+                                                        echo 'Hali Hazırda Başvurunuz Bulunmaktadır.';
+
                                                     }
                                                     if($app_comp == '1'){
                                                         echo '
@@ -946,21 +959,32 @@ FROM internship_application where st_id = $student_id_No";
                                         <tr class="ligth">
                                             <th>Başvuru ID</th>
                                             <th>Firma Adı</th>
-                                            <th>Firma Alanı</th>
-                                            <th>Görüntüle/İndir</th>
                                             <th>İşlem</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                         <tr> 
-                                            <td>'.$Internship_ID.'</td> 
-                                            <td>'.$company_name.'</td> 
-                                            <td>'.$Activity_Field.'</td> 
-                                            <td><a href="Intern-Application-Form.php" class="button">Başvuruyu Görüntüle</button></td> 
-                                            <td>    
+                                            <td><a href="Intern-Application-Form.php" class="button">'.$Internship_ID.'</button></td> 
+                                            <td>'.$company_name.'</td>';
+
+
+                                                        if ( file_exists( "Files/".$student_id_No."_InternApp.pdf" ) ) {
+                                                            echo "Dosya Yüklendi";
+echo '<td>    
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Tamamla</button>
-                                            </td>
+                                            </td>';
+                                                        }
+                                                        else {
+                                                            echo '
+                                            <td><input type="file"  name="fileToUpload5" />
+                                                    <input class="btn btn-outline-secondary" id="basvuru_pdf" type="submit" value="Başvuru Yükle"></td> 
+                                            ';
+                                                        }
+
+                                                        echo '
+                                            
+                                            
                                         </tr>';
                                                         if ($_POST) {
 
@@ -973,7 +997,7 @@ FROM internship_application where st_id = $student_id_No";
                                                             $baglanti -> close();}
                                                     }
 
-                                                    if ($app_comp == '2')
+                                                    elseif ($app_comp == '2')
                                                     {
                                                         echo '
                                         <a>Başvurunuz değerlendirme aşamasındadır.</a>
@@ -983,7 +1007,6 @@ FROM internship_application where st_id = $student_id_No";
                                         <tr class="ligth">
                                             <th>Başvuru ID</th>
                                             <th>Firma Adı</th>
-                                            <th>Firma Alanı</th>
                                             <th>Durum</th>
                                         </tr>
                                         </thead>
@@ -992,10 +1015,15 @@ FROM internship_application where st_id = $student_id_No";
                                         <tr> 
                                             <td>'.$Internship_ID.'</td> 
                                             <td>'.$company_name.'</td> 
-                                            <td>'.$Activity_Field.'</td>
                                             <td>Değerlendiriliyor</td> 
                                         </tr>';
-                                                    }}
+                                                    }
+                                            elseif($app_comp=='0'){
+
+                                                echo 'Herhangi bir başvurunuz bulunmamaktadır.';
+                                                echo 'Başvuru yapmak için <a href="intern-application-page.php">tıklayınız</a>';
+
+                                            }}
                                             ?>
                                         </tr>
                                         </tbody>
@@ -1003,48 +1031,162 @@ FROM internship_application where st_id = $student_id_No";
 
                                     </form>
                                 </div>
+
+
                                 <div id="profile2" class="tab-pane fade">
-                                    <?php
-                                    echo "Anlık olarak yaptığı kurumdaki stajın bilgilerini.";
-                                    echo "";
+                                    <form name="application" method="post">
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid" aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>Staj Dönemi</th><th>Kurum Adı</th><th>Başlangıç Tarihi</th><th>Bitiş Tarihi</th>
+                                            </tr></thead>
+                                            <?php
+                                            include('../vt.php');
+                                            $teacher_id_no = $_SESSION["Teacher_ID"];
+                                            $query = "SELECT * FROM internship_application where application_complete = '3'";
+                                            if ($result = $baglanti->query($query)) {
+                                                /* fetch associative array */
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $st_id = $row["st_id"];
+                                                    $Intern_ID = $row["Internship_ID"];
+                                                    $Company_Name = $row["Company_Name"];
+                                                    $starting_date = $row["starting_date"];
+                                                    $finish_date = $row["finish_date"];
 
-                                    ?>
+                                                    if($finish_date != date("Y-m-d"))
+                                                    {
+                                                        echo '
+                                             <tbody><tr><tr> 
+                                             
+                                            <td>'.$Intern_ID.'</td> 
+                                            <td>'.$Company_Name.'</td>
+                                            <td>'.$starting_date.'</td>
+                                            <td>'.$finish_date.'</td> 
+                                            
+                                            
+                                            
+                                            
+                                            </tr>';
+                                                    }
+                                                    else{
+                                                        echo '
+                                             <tbody><tr><tr> 
+                                             
+                                            <td>'.$Intern_ID.'</td> 
+                                            <td>'.$Company_Name.'</td>
+                                            <td>'.$starting_date.'</td>
+                                            <td>'; echo' Staj Bitti </td> 
+                                            
+                                            
+                                            </tr>';
+                                                    }
+
+
+
+                                                //Bitişini mecburen öğrenci ayarlıcak
+                                                    //Stajı bittiği zaman butona basıcak application_complete artıcak
+                                                    //Öğrenci bir sonraki aşamaya geçmiş olacak.
+
+
+
+                                                }}
+                                            $result->free(); ?>
+                                            </tr></tbody></table>
+
+                                    </form>
+
                                 </div>
-                                <div id="profile3" class="tab-pane fade">
 
+
+                                <div id="profile3" class="tab-pane fade">
 
                                     <h5>Staj/IME Başvuru Yükleme</h5>
 
                                         <?php
-                                            echo '
+                                        $query = "SELECT * FROM internship_application where application_complete = '3'";
+                                        if ($result = $baglanti->query($query)) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $finish_date = $row["finish_date"];
+                                            }
+
+                                            if ($finish_date != date("Y-m-d")) {
+                                                echo "Stajınız Henüz Bitmemiştir";
+
+                                            }
+                                            else{
+
+                                                echo "Stajınız bitmiştir. Staj raporlarınızı yükleyiniz";
+                                                echo '
                                                     <form action="uploader.php" method="post" enctype="multipart/form-data">
                                                     <html>
                                                     <head></head>
                                                     <body>
                                                     <p> <input type="file"  name="fileToUpload" />
                                                     <input class="btn btn-outline-secondary" id="rapor1_pdf" type="submit" value="Rapor Yükle">
+                                                    <p> <input type="file"  name="fileToUpload3" />
+                                                    <input class="btn btn-outline-secondary" id="rapor3_pdf" type="submit" value="Devlet Katkı Talep Formu Yükle">
                                                     </body>
                                                     </html>
                                                     </form>';
+                                            }
+                                        }
+
+
+
+
+
+
+
                                         ?>
 
 
 
                                 </div>
+
+
                                 <div id="profile4" class="tab-pane fade">
-                                    <h3>Staj/IME Raporları Yükleme</h3>
-                                    <hr>
-                                                    <form action="uploader.php" method="post" enctype="multipart/form-data">
-                                                    <html>
-                                                    <head></head>
-                                                    <body>
-                                                    <p> <input type="file"  name="fileToUpload2" />
-                                                    <input class="btn btn-outline-secondary" id="rapor2_pdf" type="submit" value="Staj Raporu Yükle">
-                                                    <p> <input type="file"  name="fileToUpload3" />
-                                                        <input class="btn btn-outline-secondary" id="rapor3_pdf" type="submit" value="Devlet Katkı Talep Formu Yükle">
-                                                    </body>
-                                                    </html>
-                                                    </form>
+                                    <form name="application" method="post">
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid" aria-describedby="user-list-page-info"><thead>
+                                            <tr class="ligth">
+                                                <th>Dönem</th>
+                                                <th>Firma</th>
+                                                <th>Notu</th>
+                                            </tr>
+                                            </thead>
+
+                                            <?php
+                                            include('../vt.php');
+                                            $teacher_id_no = $_SESSION["Teacher_ID"];
+                                            $query = "SELECT * FROM student_grades where st_id = '$student_id_No'";
+                                            if ($result = $baglanti->query($query)) {
+                                                /* fetch associative array */
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $internship_id = $row["Internship_ID"];
+                                                    $company_name_g = $row["company_name"];
+                                                    $st_grade = $row["st_grade"];
+
+
+                                                    echo '
+                                            <tr> 
+                                            <td>'.$internship_id.'</td>
+                                            <td>'.$company_name_g.'</td> 
+                                            <td>'.$st_grade.'</td>   
+ 
+                                        </tr>';
+                                                }
+                                                /* free result set */
+                                                $result->free();
+                                            }
+
+                                            ?>
+
+                                            </td>
+                                            </tr>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+
 
                                 </div>
 

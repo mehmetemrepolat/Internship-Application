@@ -920,7 +920,7 @@ FROM internship_application where st_id = $student_id_No";
                                             <?php
                                             include('../vt.php');
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM internship_application where application_complete = '4' and st_Teacher_ID = '$teacher_id_no'";
+                                            $query = "SELECT * FROM internship_application where application_complete = '5' and st_Teacher_ID = '$teacher_id_no'";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -952,8 +952,6 @@ FROM internship_application where st_id = $student_id_No";
                                                     $baglanti->close();
 
                                                     }
-
-
 
                                                     echo '</td></tr>';}}
                                              ?>

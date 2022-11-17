@@ -76,12 +76,11 @@ session_start();
                                                 $sql_query = "SELECT st_id from students where st_mailAdress='$mail' and st_password='$password'";
 
 
-                                                $sqlProfileInfoQuery = "SELECT students.st_id, internship_application.Internship_ID, Company_Name, Activity_Field, 
+                                                $sqlProfileInfoQuery = "SELECT students.st_id,
 		students.st_name, students.st_lastName, students.st_PhoneNumber, students.st_TC_No,
         students.st_mailAdress, students.st_class, students.st_adress, students.st_city, students.st_town,
                             students.st_postCode, students.st_citizenship, students.st_Teacher_ID, students.st_faculty, students.st_department, students.st_IS_info, students.st_password
-FROM internship_application
-INNER JOIN students ON internship_application.st_id=students.st_id where st_password = '$password'";
+FROM students where st_password = '$password'";
 
                                                 $qqq = $baglanti->query($sqlProfileInfoQuery);
                                                 $active = $row['active'];
@@ -103,7 +102,7 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_pass
                                                     $_SESSION["last_name"] = "$student_lastName";
                                                     $student_PhoneNumber = $RESULT['st_PhoneNumber'];
                                                     $_SESSION["st_phoneNumber"] = "$student_PhoneNumber";
-
+                                                    $_SESSION["today"] = date("Y-m-d");
                                                     $st_TC_No = $RESULT['st_TC_No'];
                                                     $_SESSION["st_TC_No"] = "$st_TC_No";
                                                     
@@ -133,11 +132,6 @@ INNER JOIN students ON internship_application.st_id=students.st_id where st_pass
                                                     $_SESSION["ID"] = "$student_ID";
                                                     $Internship_ID = $RESULT['Internship_ID'];
                                                     $_SESSION["Internship_ID"] = "$Internship_ID";
-
-
-
-
-
 
                                                     echo $_SESSION["ID"];
                                                     header("location:student-profile.php"); //sayfa yönlendirme
