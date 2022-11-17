@@ -832,12 +832,7 @@ FROM internship_application where st_id = $student_id_No";
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false"></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Deneyimlerim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a id="view-btn" class="nav-link" data-toggle="pill" href="#profile5" role="tab" aria-selected="true">Hakkımda</a>
-                                </li>
+
                             </ul>
                             <div class="profile-content tab-content">
 
@@ -904,18 +899,7 @@ FROM internship_application where st_id = $student_id_No";
                                         </tr>
                                         </tbody>
                                     </table>
-                                        <?php
 
-                                        if ($_POST) {
-
-                                            $sql_query = "UPDATE internship_application SET application_complete = '1' WHERE st_id = '$student_id_No';";
-                                            if (!$baglanti -> query($sql_query) ) {
-                                                echo("Error description: " . $baglanti -> error);
-                                            }
-                                            else{echo "Tamamdır"; }
-                                            $baglanti -> close();
-                                        }
-                                        ?>
                                 </form>
                             </div>
                                 <div id="profile2" class="tab-pane fade">
@@ -952,30 +936,44 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$starting_date.'</td>
                                             <td>'.$finish_date.'</td>
                                             <td><a href="../students/Files/'.$Intern_ID.'.pdf">Rapor</a></td>
-                                            <td><input name="ogretmen" id="ogretmen" /<input type="text">';echo'</td>
-                                            <td><input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="ony">Onayla</button>';
-                                                    if(isset($_POST['ony'])) {
-                                                        //Öğretmen ID'si girilecek
-                                                        $temp_teacher_id = $_POST["ogretmen"];
-                                                        $addding_teacher_sql = "UPDATE internship_application SET st_Teacher_ID ='$temp_teacher_id' WHERE `st_id` = '$st_id'";
+                                            <td><input name="grade" id="grade" /<input type="text">';echo'</td>
+                                            <td><input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="conf">Onayla</button>';
 
-                                                        if(!$baglanti -> query($addding_teacher_sql)) {
-                                                            echo("Yanlış Atama Gerçekleştirdiniz!: ");
-                                                        }}
+                                                    $result->free();
+                                            if(isset($_POST['conf'])) {
+                                                        $grade = $_POST["grade"];
+                                                        //Öğretmen ID'si girilecek
+                                                        $addding_grade = "INSERT INTO student_grades(st_id, st_name, Internship_ID, st_Teacher_ID, st_grade)
+                                                                                VALUES ('$st_id', '$st_name', '$Intern_ID', '$teacher_id_no', '$grade');";
+
+                                                        if(!$baglanti -> query($addding_grade)) {
+                                                            echo("Yanlış Atama Gerçekleştirdiniz!". $baglanti -> error);
+                                                        }
+                                                    $baglanti->close();
+
+
+                                                        $onayQuery = "UPDATE internship_application SET application_complete = '5' WHERE `Internship_ID` = '$Intern_ID'";
+                                                        $baglanti->query($onayQuery);
+                                                        $baglanti->close();
+
+
+                                                        $sql_syntax = "UPDATE internship_application SET application_complete = '5' WHERE Internship_ID = '$Intern_ID'";
+                                                        $baglanti -> query($sql_syntax);
+                                                        $baglanti->close();
+
+                                                    }
+
+
+
                                                     echo '</td></tr>';}}
-                                            $result->free(); ?>
+                                             ?>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </form>
 
                                 </div>
-                                <div id="profile3" class="tab-pane fade">
-                                </div>
-                                <div id="profile4" class="tab-pane fade">
-                                </div>
-                                <div id="profile5" class="tab-pane fade">
-                                </div>
+
 
                             </div>
                         </div>
