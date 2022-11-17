@@ -1,0 +1,61 @@
+Zeynep - Komisyon
+Serdar - Öğretmen
+Emre - Öğrenci
+
+Emre sisteme giriş yapar
+Başvuru sayfasına gelir.
+Kurum ile ilgili bilgileri doldurur. 
+Başvuru ekranı Emreye pdf çıktısı verir
+Emre PDF'i sisteme yükler
+
+Zeynep Emrenin yüklediği pdfi kontrol eder
+Onay veya Red verir
+
+Emrenin stajı başlar
+staj süresince zeynep emreyi kontrol edebilir. Staj durumlarını
+Staj biter
+Emre sisteme raporlarını yükler
+Sistem raporların kontrolünü gerçekleştirir.
+Zeynep Emrenin yüklediği raporları kontrol eder
+Danışman Atar Serdar
+Serdar Emreyi mülakata çağırıp
+Notlandırmasını gerçekleştirir.
+
+
+
+    
+        if(array_key_exists('onay', $_POST)) {
+            onay();
+        }
+        else if(array_key_exists('red', $_POST)) {
+            red();
+        }
+        function onay() {
+            echo "This is Button1 that is selected";
+        }
+        function red() {
+            echo "This is Button2 that is selected";
+        }
+    
+
+
+
+IME Başvuru Sayfası Hazır
+Komisyon olayları tamam
+Şimdi öğretmen kısmına geldik.
+
+Öğretmen öğrencinin raporlarını görüntüleme yapabilecek.
+ve Notlandırma yapacak.
+
+öğrenci notları isminde bir veritabanı tablosu oluşturulacak.
+
+Öğretmen profilinde değerlendirme yapılacak öğrencilerin tabloları gözükücek
+Bu tablodaki bilgilerde
+Öğrenci_ID - Staj Dönem veya IME Bilgisi - Rapor - Not Inputu - Onay butonu - Gerekçe Inputu - Red butonu
+
+IS_ID -> Internship_ID
+
+-----------------------------------------------------------
+Komisyonda Öğrencinin notlarını görüntülemesi için tablo
+IME başvuru aşamasına geçilme ve IME'deki olayları Stajdakilere benzetilmesi
+
