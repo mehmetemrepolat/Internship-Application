@@ -101,7 +101,7 @@ FROM internship_application where st_id = $student_id_No";
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
-    header("location:index.php");
+    header("location:teacher-login.php");
 }else {
 
     header("location:teacher-login.php");
@@ -1050,6 +1050,58 @@ FROM internship_application where st_id = $student_id_No";
 
                                 </div>
                                 <div id="profile5" class="tab-pane fade">
+                                    <form name="application" method="post">
+
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>Numarası</th>
+                                                <th>Öğrenci Adı</th>
+                                                <th>Dönem</th>
+                                                <th>Firma</th>
+                                                <th>Notu</th>
+
+
+                                            </tr>
+                                            </thead>
+
+                                            <?php
+                                            include('../vt.php');
+                                            $teacher_id_no = $_SESSION["Teacher_ID"];
+                                            $query = "SELECT * FROM student_grades";
+                                            if ($result = $baglanti->query($query)) {
+                                                /* fetch associative array */
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $ID = $row["st_id"];
+                                                    $name = $row["st_name"];
+                                                    $internship_id = $row["Internship_ID"];
+                                                    $company_name_g = $row["company_name"];
+                                                    $st_grade = $row["st_grade"];
+
+
+                                                    echo '
+                                            <tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$internship_id.'</td>
+                                            <td>'.$company_name_g.'</td> 
+                                            <td>'.$st_grade.'</td>   
+ 
+                                        </tr>';
+                                                }
+                                                /* free result set */
+                                                $result->free();
+                                            }
+
+                                            ?>
+
+                                            </td>
+                                            </tr>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
                                 </div>
 
                             </div>

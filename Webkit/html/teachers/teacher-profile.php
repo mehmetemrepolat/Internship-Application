@@ -943,8 +943,8 @@ FROM internship_application where st_id = $student_id_No";
                                             if(isset($_POST['conf'])) {
                                                         $grade = $_POST["grade"];
                                                         //Öğretmen ID'si girilecek
-                                                        $addding_grade = "INSERT INTO student_grades(st_id, st_name, Internship_ID, st_Teacher_ID, st_grade)
-                                                                                VALUES ('$st_id', '$st_name', '$Intern_ID', '$teacher_id_no', '$grade');";
+                                                        $addding_grade = "INSERT INTO student_grades(st_id, st_name, Internship_ID, st_Teacher_ID, st_grade, company_name)
+                                                                                VALUES ('$st_id', '$st_name', '$Intern_ID', '$teacher_id_no', '$grade', '$Company_Name');";
 
                                                         if(!$baglanti -> query($addding_grade)) {
                                                             echo("Yanlış Atama Gerçekleştirdiniz!". $baglanti -> error);
@@ -973,6 +973,7 @@ FROM internship_application where st_id = $student_id_No";
                                                 <th>Numarası</th>
                                                 <th>Öğrenci Adı</th>
                                                 <th>Dönem</th>
+                                                <th>Firma</th>
                                                 <th>Notu</th>
 
 
@@ -989,13 +990,16 @@ FROM internship_application where st_id = $student_id_No";
                                                     $ID = $row["st_id"];
                                                     $name = $row["st_name"];
                                                     $internship_id = $row["Internship_ID"];
-                                                    $st_grade = $row['st_grade'];
+                                                    $company_name_g = $row["company_name"];
+                                                    $st_grade = $row["st_grade"];
+
 
                                                     echo '
                                             <tr> 
                                             <td>'.$ID.'</td> 
                                             <td>'.$name.'</td> 
-                                            <td>'.$internship_id.'</td> 
+                                            <td>'.$internship_id.'</td>
+                                            <td>'.$company_name_g.'</td> 
                                             <td>'.$st_grade.'</td>   
  
                                         </tr>';
