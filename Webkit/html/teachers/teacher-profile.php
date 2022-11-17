@@ -830,7 +830,7 @@ FROM internship_application where st_id = $student_id_No";
                                     <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Onaylanan Stajlar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false"></a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Öğrenci Notları</a>
                                 </li>
 
                             </ul>
@@ -951,16 +951,6 @@ FROM internship_application where st_id = $student_id_No";
                                                         }
                                                     $baglanti->close();
 
-
-                                                        $onayQuery = "UPDATE internship_application SET application_complete = '5' WHERE `Internship_ID` = '$Intern_ID'";
-                                                        $baglanti->query($onayQuery);
-                                                        $baglanti->close();
-
-
-                                                        $sql_syntax = "UPDATE internship_application SET application_complete = '5' WHERE Internship_ID = '$Intern_ID'";
-                                                        $baglanti -> query($sql_syntax);
-                                                        $baglanti->close();
-
                                                     }
 
 
@@ -972,6 +962,56 @@ FROM internship_application where st_id = $student_id_No";
                                         </table>
                                     </form>
 
+                                </div>
+                                <div id="profile3" class="tab-pane fade">
+                                    <form name="application" method="post">
+
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>Numarası</th>
+                                                <th>Öğrenci Adı</th>
+                                                <th>Dönem</th>
+                                                <th>Notu</th>
+
+
+                                            </tr>
+                                            </thead>
+
+                                            <?php
+                                            include('../vt.php');
+                                            $teacher_id_no = $_SESSION["Teacher_ID"];
+                                            $query = "SELECT * FROM student_grades";
+                                            if ($result = $baglanti->query($query)) {
+                                                /* fetch associative array */
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $ID = $row["st_id"];
+                                                    $name = $row["st_name"];
+                                                    $internship_id = $row["Internship_ID"];
+                                                    $st_grade = $row['st_grade'];
+
+                                                    echo '
+                                            <tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$internship_id.'</td> 
+                                            <td>'.$st_grade.'</td>   
+ 
+                                        </tr>';
+                                                }
+                                                /* free result set */
+                                                $result->free();
+                                            }
+
+                                            ?>
+
+                                            </td>
+                                            </tr>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
                                 </div>
 
 
