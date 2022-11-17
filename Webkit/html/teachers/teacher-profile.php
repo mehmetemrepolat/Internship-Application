@@ -763,7 +763,7 @@ FROM internship_application where st_id = $student_id_No";
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height"><?php echo $name;?><i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height"><?php echo $_SESSION["Teacher_Name"];?><i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -827,10 +827,10 @@ FROM internship_application where st_id = $student_id_No";
                                     <a class="nav-link active show" data-toggle="pill" href="#profile1" role="tab" aria-selected="false">Öğrenciler</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Staj Başvuruları</a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Onaylanan Stajlar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Onaylanan Stajlar</a>
+                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false"></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#profile4" role="tab" aria-selected="false">Deneyimlerim</a>
@@ -890,8 +890,8 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$st_class.'</td>
                                             <td>'.$st_faculty.'</td>
                                             <td>'.$st_department.'</td>
-                                            <td>'.$st_department.'</td>
-                                            <td>'.$st_department.'</td>
+                                            <td>'.$st_PhoneNumber.'</td>
+                                            <td>'.$st_mailAdress.'</td>
                                             
                                             
                                            
@@ -919,29 +919,24 @@ FROM internship_application where st_id = $student_id_No";
                                 </form>
                             </div>
                                 <div id="profile2" class="tab-pane fade">
+
+
+
                                     <form name="application" method="post">
-
-                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
-                                               aria-describedby="user-list-page-info">
-                                            <thead>
-                                            <tr class="ligth">
-                                                <th>Öğrenci Numarası</th>
-                                                <th>Staj Dönemi</th>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid" aria-describedby="user-list-page-info">
+                                            <thead><tr class="ligth">
+                                                <th>Numara</th>
+                                                <th>Dönem</th>
                                                 <th>Kurum Adı</th>
-                                                <th>Başlangıç Tarihi</th>
-                                                <th>Bitiş Tarihi</th>
-                                                <th>Görüntüle</th>
-                                                <th>İşlem</th>
-
-                                            </tr>
-                                            </thead>
-
+                                                <th>Başlangıç</th>
+                                                <th>Bitiş</th>
+                                                <th>Rapor</th>
+                                                <th>Not</th>
+                                                <th>Onayla</th></tr></thead>
                                             <?php
                                             include('../vt.php');
-
-
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM internship_application where st_Teacher_ID = $teacher_id_no";
+                                            $query = "SELECT * FROM internship_application where application_complete = '4' and st_Teacher_ID = '$teacher_id_no'";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -950,49 +945,30 @@ FROM internship_application where st_id = $student_id_No";
                                                     $Company_Name = $row["Company_Name"];
                                                     $starting_date = $row["starting_date"];
                                                     $finish_date = $row["finish_date"];
-
-                                                    echo '
-                                        
-                                        <tbody>
-                                        <tr>
-                                        <tr> 
-                                             <td>'.$st_id.'</td> 
+                                                    echo '<tbody><tr><tr> 
+                                            <td>'.$st_id.'</td> 
                                             <td>'.$Intern_ID.'</td> 
                                             <td>'.$Company_Name.'</td>
                                             <td>'.$starting_date.'</td>
                                             <td>'.$finish_date.'</td>
-                                            <td>
-                                            
-                                                <a href="../students/Files/'.$Internship_ID.'.pdf';
+                                            <td><a href="../students/Files/'.$Intern_ID.'.pdf">Rapor</a></td>
+                                            <td><input name="ogretmen" id="ogretmen" /<input type="text">';echo'</td>
+                                            <td><input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="ony">Onayla</button>';
+                                                    if(isset($_POST['ony'])) {
+                                                        //Öğretmen ID'si girilecek
+                                                        $temp_teacher_id = $_POST["ogretmen"];
+                                                        $addding_teacher_sql = "UPDATE internship_application SET st_Teacher_ID ='$temp_teacher_id' WHERE `st_id` = '$st_id'";
 
-                                                    echo '" class="button">Başvuruyu Görüntüle</button>
-                                            </td> 
-                                            <td>
-                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Onayla</button>
-                                                <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post" class="btn btn-danger">Reddet</button>
-                                            </td>
-                                        </tr>';
-                                                }
-                                            }
-                                            /* free result set */
-                                            $result->free();
-                                            ?>
+                                                        if(!$baglanti -> query($addding_teacher_sql)) {
+                                                            echo("Yanlış Atama Gerçekleştirdiniz!: ");
+                                                        }}
+                                                    echo '</td></tr>';}}
+                                            $result->free(); ?>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <?php
-
-                                        if ($_POST) {
-
-                                            $sql_query = "UPDATE internship_application SET application_complete = '1' WHERE st_id = '$student_id_No';";
-                                            if (!$baglanti -> query($sql_query) ) {
-                                                echo("Error description: " . $baglanti -> error);
-                                            }
-                                            else{echo "Tamamdır"; }
-                                            $baglanti -> close();
-                                        }
-                                        ?>
                                     </form>
+
                                 </div>
                                 <div id="profile3" class="tab-pane fade">
                                 </div>
