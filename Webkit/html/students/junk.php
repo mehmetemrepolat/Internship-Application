@@ -1,6 +1,10 @@
 <?php
-echo $_SESSION["ID"].".pdf"
 
+
+
+$temp_pass = password_hash(123, PASSWORD_DEFAULT);
+
+echo $temp_pass;
 
 
 
