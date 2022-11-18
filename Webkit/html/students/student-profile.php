@@ -101,7 +101,7 @@ FROM internship_application where st_id = $student_id_No";
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
-    header("location:index.php");
+    header("location:student-login.php");
 }else {
 
     header("location:student-login.php");
@@ -905,24 +905,23 @@ FROM internship_application where st_id = $student_id_No";
                                     <form name="application" method="post"
                                           
                                           <?php
-                                          if ( file_exists( "Files/".$student_id_No."_InternApp.pdf" ) ) {
-                                             echo ">";
+                                          if ( !file_exists( "Files/".$_SESSION["is_id_no"]."_InternApp.pdf" ) ) //1. ve 2. Staj dosyasının olup olmadığı kontrol edilir.
+                                          {
+                                             echo "action='uploader.php' enctype='multipart/form-data'>";
                                           }
-
-else{
-    echo "action='uploader.php' enctype='multipart/form-data'>";
-}
+                                          else
+                                          {
+                                              echo ">";
+                                          }
                                           ?>
-                                          
-                                          
-
                                     <?php
                                             include('../vt.php');
-                                            $query = "SELECT Internship_ID, Company_Name, Activity_Field, application_complete FROM internship_application where st_id = $student_id_No";
+                                            $query = "SELECT Internship_ID, Company_Name, Activity_Field, application_complete FROM internship_application where st_id = $student_id_No and application_complete != '5'";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
                                                     $Internship_ID = $row["Internship_ID"];
+                                                    $_SESSION["is_id_no"] = $Internship_ID;
                                                     $application_complete = $row["application_complete"];
                                                     $Activity_Field = $row["Activity_Field"];
                                                     $company_name = $row["Company_Name"];
@@ -945,11 +944,7 @@ else{
 
                                                 $app_comp = $application_complete;
 
-                                                if($app_comp != '0')
-                                                    {
-                                                        echo 'Hali Hazırda Başvurunuz Bulunmaktadır.';
 
-                                                    }
                                                     if($app_comp == '1'){
                                                         echo '
                                         <a>Başvurunuzu tamamlamak ve Başvuru raporunuzun çıktısını almak için "Başvuruyu Tamamla" butonuna basmanız gerekmektedir.</a>
@@ -968,10 +963,15 @@ else{
                                             <td><a href="Intern-Application-Form.php" class="button">'.$Internship_ID.'</button></td> 
                                             <td>'.$company_name.'</td>';
 
+                                                        echo "Files/".$_SESSION["is_id_no"]."_InternApp.pdf";
 
-                                                        if ( file_exists( "Files/".$student_id_No."_InternApp.pdf" ) ) {
+                                                        if ( file_exists( "Files/".$_SESSION["is_id_no"]."_InternApp.pdf" ) ) {
+
                                                             echo "Dosya Yüklendi";
-echo '<td>    
+
+
+                                            echo
+                                            '<td>    
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" formmethod="post"  class="btn btn-primary">Tamamla</button>
                                             </td>';
                                                         }
@@ -988,7 +988,7 @@ echo '<td>
                                         </tr>';
                                                         if ($_POST) {
 
-                                                            $sql_query = "UPDATE internship_application SET application_complete = '2' WHERE st_id = '$student_id_No';";
+                                                            $sql_query = "UPDATE internship_application SET application_complete = '2' WHERE st_id = '$student_id_No' and application_complete != '5';";
                                                             if (!$baglanti -> query($sql_query) )
                                                             {
                                                                 echo("Error description: " . $baglanti -> error);
@@ -1018,12 +1018,30 @@ echo '<td>
                                             <td>Değerlendiriliyor</td> 
                                         </tr>';
                                                     }
-                                            elseif($app_comp=='0'){
 
-                                                echo 'Herhangi bir başvurunuz bulunmamaktadır.';
-                                                echo 'Başvuru yapmak için <a href="intern-application-page.php">tıklayınız</a>';
+                                                    elseif ($app_comp =='5')
+                                                    {
+                                                        echo "1.Stajınız bitti.";
+                                                        // 2. staj veya IME Başvurusu yapmak için tıklayınız.
+                                                        echo ' <a href="intern-application-page.php">2. Staj</a> veya <a href="intern-application-page.php">IME</a> Başvurusu yapmak için ';
 
-                                            }}
+
+
+                                                    }
+
+
+
+
+                                                    elseif($app_comp=='0'){
+                                                        echo 'Herhangi bir başvurunuz bulunmamaktadır.';
+                                                        echo 'Başvuru yapmak için <a href="intern-application-page.php">tıklayınız</a>';
+                                                    }
+                                                    else
+                                                    {
+                                                        echo "Süreçleriniz devam etmektedir.";
+                                                    }
+
+                                            }
                                             ?>
                                         </tr>
                                         </tbody>
@@ -1107,13 +1125,11 @@ echo '<td>
                                         if ($result = $baglanti->query($query)) {
                                             while ($row = $result->fetch_assoc()) {
                                                 $finish_date = $row["finish_date"];
-                                            }
-
-                                            if ($finish_date != date("Y-m-d")) {
-                                                echo "Stajınız Henüz Bitmemiştir";
+                                                $application_comp = $row["application_complete"];
 
                                             }
-                                            else{
+
+                                            if ($application_complete = '3'){
 
                                                 echo "Stajınız bitmiştir. Staj raporlarınızı yükleyiniz";
                                                 echo '
@@ -1128,6 +1144,11 @@ echo '<td>
                                                     </body>
                                                     </html>
                                                     </form>';
+                                            }
+                                            else
+                                            {
+                                                echo "Stajınız Henüz Bitmemiştir".$_SESSION["Tod"];
+
                                             }
                                         }
 

@@ -981,13 +981,13 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                             $Internship_ID = $student_id_No."_".$st_IS_info."_I";
 
                                             $sql_query = "
-                                              INSERT INTO ime_application (st_id, Company_ID, IME_ID, starting_date, finish_date, Company_Name,
+                                              INSERT INTO internship_application (st_id, Company_ID, Internship_ID, starting_date, finish_date, Company_Name,
                                                                                   working_day, Activity_Field, Company_adress, Company_city,
                                                                                   Company_town, Company_postCode, Company_PhoneNumber, Company_FAX, Company_mailAdress,
-                                                                                  Responsible_Title, health_care, GSS, yearOld_25, application_complete, IBAN_No, st_Teacher_ID)
+                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308, application_complete, IBAN_No, st_Teacher_ID)
                                                VALUES ('$student_id_No', '$Company_ID', '$Internship_ID', '$start_date', '2022-12-21', '$Company_Name',
                                                        '$work_day','$Activity_Field', '$Company_adress', '$Company_city', '$Company_town', '$Company_postCode',
-                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','0', '$IBAN_No', '0');";
+                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','0', '0','$IBAN_No', '0');";
 
 
 

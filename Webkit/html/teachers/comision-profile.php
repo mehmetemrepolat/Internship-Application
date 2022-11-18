@@ -840,7 +840,7 @@ FROM internship_application where st_id = $student_id_No";
                                 </li>
                             </ul>
                             <div class="profile-content tab-content">
-                                
+
                                 <div id="profile1" class="tab-pane fade active show">
                                     <form name="application" method="post">
                                         <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
@@ -901,7 +901,7 @@ FROM internship_application where st_id = $student_id_No";
                                             <td>'.$Company_Name.'</td>
                                             <td>'.$starting_date.'</td>
                                             <td>'.$finish_date.'</td>
-                                            <td><a href="../students/Files/'.$st_id."_InternApp.pdf";
+                                            <td><a href="../students/Files/'.$Intern_ID."_InternApp.pdf";
                                                     echo '" class="button">Başvuruyu Görüntüle</button></td><td>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="kbl">Kabul Et</button>
                                                 <input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-danger mt-2" name="reddet">Reddet</button>';
@@ -943,7 +943,7 @@ FROM internship_application where st_id = $student_id_No";
                                         <?php
                                         include('../vt.php');
                                         $teacher_id_no = $_SESSION["Teacher_ID"];
-                                        $query = "SELECT * FROM internship_application where application_complete = '4'";
+                                        $query = "SELECT * FROM internship_application where application_complete = '4' or application_complete = '4'";
                                         if ($result = $baglanti->query($query)) {
                                             /* fetch associative array */
                                             while ($row = $result->fetch_assoc()) {

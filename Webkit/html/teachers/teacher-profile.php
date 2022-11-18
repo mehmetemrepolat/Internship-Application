@@ -860,7 +860,7 @@ FROM internship_application where st_id = $student_id_No";
 
 
                                             $teacher_id_no = $_SESSION["Teacher_ID"];
-                                            $query = "SELECT * FROM students where st_Teacher_ID = $teacher_id_no";
+                                            $query = "SELECT * FROM students";
                                             if ($result = $baglanti->query($query)) {
                                                 /* fetch associative array */
                                                 while ($row = $result->fetch_assoc()) {
@@ -939,21 +939,23 @@ FROM internship_application where st_id = $student_id_No";
                                             <td><input name="grade" id="grade" /<input type="text">';echo'</td>
                                             <td><input class="floating-input form-control" name="password" type="password" style="display: none" placeholder=" "><button type="submit" class="btn btn-success mt-2" name="conf">Onayla</button>';
 
-                                                    $result->free();
-                                            if(isset($_POST['conf'])) {
-                                                        $grade = $_POST["grade"];
-                                                        //Öğretmen ID'si girilecek
-                                                        $addding_grade = "INSERT INTO student_grades(st_id, st_name, Internship_ID, st_Teacher_ID, st_grade, company_name)
+
+
+                                                    echo '</td></tr>';}
+                                                $result->free();
+                                                if(isset($_POST['conf'])) {
+                                                    $grade = $_POST["grade"];
+                                                    //Öğretmen ID'si girilecek
+                                                    $addding_grade = "INSERT INTO student_grades(st_id, st_name, Internship_ID, st_Teacher_ID, st_grade, company_name)
                                                                                 VALUES ('$st_id', '$st_name', '$Intern_ID', '$teacher_id_no', '$grade', '$Company_Name');";
 
-                                                        if(!$baglanti -> query($addding_grade)) {
-                                                            echo("Yanlış Atama Gerçekleştirdiniz!". $baglanti -> error);
-                                                        }
+                                                    if(!$baglanti -> query($addding_grade)) {
+                                                        echo("Yanlış Atama Gerçekleştirdiniz!". $baglanti -> error);
+                                                    }
                                                     $baglanti->close();
 
-                                                    }
-
-                                                    echo '</td></tr>';}}
+                                                }
+                                            }
                                              ?>
                                             </tr>
                                             </tbody>

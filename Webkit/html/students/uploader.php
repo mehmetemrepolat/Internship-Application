@@ -63,12 +63,13 @@ else
 {
     echo "Hata, Dosya Yüklenemedi!";
 }
-if(move_uploaded_file($_FILES['fileToUpload5']['tmp_name'], 'Files/'.$student_id_No.'_InternApp.pdf')) {
+
+if(move_uploaded_file($_FILES['fileToUpload5']['tmp_name'], 'Files/'.$_SESSION["is_id_no"].'_InternApp.pdf')) {
     echo "Dosya Yüklendi!";
 }
 else
 {
-    echo "Hataasldkmasdlaksd!";
+    echo "Hata!";
 }
 
 
