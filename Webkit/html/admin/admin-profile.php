@@ -1,7 +1,5 @@
-<?php
-include('../vt.php');
-include('session.php');
-?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,60 +19,30 @@ include('session.php');
     <link rel="stylesheet" href="../assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">  </head>
 <body class="  ">
 <!-- loader Start -->
-
 <?php
 include('../vt.php');
 
 session_start(); //oturum başlattık
 //oturumdaki bilgilerin doğruluğunu kontrol ediyoruz
 
-if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
+if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6666") {
     //eğer veriler doğru ise sayfaya girmesine izin veriyoruz
-    $student_id_No = $_SESSION["ID"];
-
-    $sqlProfileInfoQuery = "Select st_name, st_lastName, st_PhoneNumber, st_mailAdress, st_class, st_adress, st_city, st_town,
-                            st_postCode, st_citizenship, st_faculty, st_department, st_IS_info FROM students where st_id = '$student_id_No'";
-
-    if($Info_Results = $baglanti->query($sqlProfileInfoQuery)){
-        while($row = $Info_Results->fetch_assoc())
-        {
-
-            $name = $row["st_name"];
-            $st_lastName = $row["st_lastName"];
-            $st_PhoneNumber = $row["st_PhoneNumber"];
-            $st_mailAdress = $row["st_mailAdress"];
-            $st_class = $row["st_class"];
-            $st_adress = $row["st_adress"];
-            $st_city = $row["st_city"];
-            $st_town = $row["st_town"];
-            $st_postCode = $row["st_postCode"];
-            $st_citizenship = $row["st_citizenship"];
-            $st_faculty = $row["st_faculty"];
-            $st_department = $row["st_department"];
-            $st_IS_info = $row["st_IS_info"];
-        }
-    }
-    //$Info_Results = $baglanti->query($sqlProfileInfoQuery);
-    //$row = $Info_Results->fetch_array();
-
-
-
-    $Info_Results->free();
-
-
+    $admin_id =  $_SESSION["admin_id"];
+    $username = $_SESSION["admin_username"]; 
+    $admin_mail = $_SESSION["admin_mail"];
 
 
 } else if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789"){
-    header("location:index.php");
+    header("location:admin-login.php");
 }else {
 
-    header("location:student-login.php");
+    header("location:admin-login.php");
 }
 
 ?>
 <div id="loading">
-      <div id="loading-center">
-      </div>
+    <div id="loading-center">
+    </div>
 </div>
 <!-- loader END -->
 <!-- Wrapper Start -->
@@ -166,12 +134,12 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                     <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                                 </a>
                                 <ul id="user" class="iq-submenu collapse" data-parent="#otherpage">
-                                    <li class="">
+                                    <li class="active">
                                         <a href="../app/user-profile.html">
                                             <i class="las la-minus"></i><span>User Profile</span>
                                         </a>
                                     </li>
-                                    <li class="active">
+                                    <li class="">
                                         <a href="user-add.php">
                                             <i class="las la-minus"></i><span>User Add</span>
                                         </a>
@@ -537,7 +505,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                     </a>
                 </div>
                 <div class="navbar-breadcrumb">
-                    <h5>IME Başvuru Sayfası</h5>
+                    <h5>Admin Profil</h5>
                 </div>
                 <div class="d-flex align-items-center">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -551,7 +519,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                 <div class="iq-search-bar device-search">
                                     <form action="#" class="searchbox">
                                         <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                                        <input type="text" class="text search-input" placeholder="Search here...">
+                                        <input type="text"  formmethod="post" class="text search-input" placeholder="Search here...">
                                     </form>
                                 </div>
                             </li>
@@ -727,7 +695,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                     <div class="caption ml-3">
-                                        <h6 class="mb-0 line-height"><?php echo $student_id_No;?><i class="las la-angle-down ml-2"></i></h6>
+                                        <h6 class="mb-0 line-height"><?php echo $name;?><i class="las la-angle-down ml-2"></i></h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
@@ -735,7 +703,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-0 text-primary" id="h-01-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <a href="student-profile.php">My Profile</a>
+                                        <a href="../app/user-profile.html">My Profile</a>
                                     </li>
                                     <li class="dropdown-item d-flex svg-icon">
                                         <svg class="svg-icon mr-0 text-primary" id="h-02-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -760,7 +728,7 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
                                         <svg class="svg-icon mr-0 text-primary" id="h-05-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
-                                        <a href="../backend/auth-sign-in.php">Logout</a>
+                                        <a href="../logout.php">Logout</a>
                                     </li>
                                 </ul>
                             </li>
@@ -772,238 +740,276 @@ if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "5672") {
     </div>      <div class="content-page">
         <div class="container-fluid">
             <div class="row">
-
-                <div>
-                    <form name="ekleme_formu">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="new-user-info">
-                                    <form name="application" method="post">
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <h4>Öğrenci Hesap Bilgisi:</h4>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">IBAN No Ziraat Bankası:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="cname" name="IBAN_No" placeholder="Resmi Adı">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <h4>IME Bilgileri:</h4>
-                                            </div>
-
-                                            <div class="checkbox form-group col-md-6">
-                                                <label for="mobno">İş Günü:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="work_day" placeholder="İş Günü">
-                                            </div>
-                                            <div class="checkbox form-group col-md-6">
-                                                <label for="mobno">Başlama Tarihi:</label>
-                                                <input type="date" formmethod="post" class="form-control" id="mobno" name="start_date" placeholder="İl">
-                                            </div>
-
-
-
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">Ailemden, Kendimden veya Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum:
-                                                    </label>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="health_care1" id="checkbox1">
-                                                <label for="checkbox1">Evet</label>
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="health_care0" id="checkbox1">
-                                                <label for="checkbox1">Hayır</label>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum):
-                                                </label>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="GSS_1" id="checkbox1">
-                                                <label for="checkbox1">Evet</label>
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="GSS_0" id="checkbox1">
-                                                <label for="checkbox1">Hayır</label>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">25 Yaşını Doldurdum:
-                                                </label>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="25_yearOld1" id="checkbox1">
-                                                <label for="checkbox1">Evet</label>
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="25_yearOld0" id="checkbox1">
-                                                <label for="checkbox1">Hayır</label>
-                                            </div>
-
-
-
-                                            <div class="form-group col-md-12">
-                                                <h4>IME Yapılacak Kurum Bilgileri:</h4>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">Resmi Adı:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Company_Name" placeholder="Resmi Adı">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">Faaliyet Alanı:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Activity_Field" placeholder="Faaliyet Alanı">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <h4>Adres Bilgileri:</h4>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="cname">Adres:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="cname" name="Company_adress" placeholder="Adres">
-                                            </div>
-
-                                            <div class="form-group col-md-4">
-                                                <label for="mobno">İl:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="mobno" name="Company_city" placeholder="İl">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="altconno">İlçe:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="altconno" name="Company_town" placeholder="İlçe">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="email">Posta Kodu:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="zip_cod" name="Company_postCode" placeholder="Posta Kodu">
-                                            </div>
-
-                                            <div class="form-group col-md-12">
-                                                <h4>İletişim Bilgileri:</h4>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="cname">Telefon:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="Fname" name="Company_PhoneNumber" placeholder="Telefon">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="cname">Fax:</label>
-                                                <input type="text" formmethod="post" class="form-control" id="Dname" name="Company_FAX" placeholder="Fax">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="cname">E-Posta:</label>
-                                                <input type="text" formmethod="post" class="form-control" name="Company_mailAdress" id="Company_mailAdress" placeholder="E-Posta">
-                                            </div>
-                                            <div></div>
-
-                                            <div class="form-group col-md-12">
-                                                <h5>IME Sorumlusu Ünvanı:</h5>
-                                            </div>
-                                            <div class="checkbox d-inline-block mr-4">
-                                            </div>
-                                            <div class="checkbox d-inline-block mr-4">
-                                                <input type="checkbox" class="checkbox-input" name="engineer" id="checkbox1">
-                                                <label for="checkbox1">Mühendis</label>
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="technic_teacher" id="checkbox2">
-                                                <label for="checkbox1">Teknik Öğretmen</label>
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                                <input type="checkbox" class="checkbox-input" name="DR" id="checkbox3">
-                                                <label for="checkbox1">Hekim</label>
-                                            </div>
-                                        </div>
-                                        <hr>
-
-                                        <button type="submit" formmethod="post"  class="btn btn-primary" ID="btnKayit">Başvuru Belgesi Oluştur</button>
-
-
-                                        <?php
-
-                                        
-                                        //Post varsa yani submit yapılmışsa veri tabanından kontrolü yapıyoruz.
-                                        if ($_POST) {
-
-                                            $IBAN_No = $_REQUEST['IBAN_No'];
-                                            $work_day = $_REQUEST['work_day'];
-                                            $start_date = $_REQUEST['start_date'];
-
-                                            if (isset($_REQUEST['health_care1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $health_care = 1;
-                                            } else {
-                                                $health_care = 0;
-                                            }
-                                            if (isset($_REQUEST['GSS_1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $GSS = 1;
-                                            } else {
-                                                $GSS = 0;
-                                            }
-                                            if (isset($_REQUEST['25_yearOld1'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $yearOld_25 = 1;
-                                            } else {
-                                                $yearOld_25 = 0;
-                                            }
-                                            $Company_Name = $_REQUEST['Company_Name'];
-                                            $Activity_Field = $_REQUEST['Activity_Field'];
-                                            $Company_adress = $_REQUEST['Company_adress'];
-                                            $Company_city = $_REQUEST['Company_city'];
-                                            $Company_town = $_REQUEST['Company_town'];
-                                            $Company_postCode = $_REQUEST['Company_postCode'];
-                                            $Company_PhoneNumber = $_REQUEST['Company_PhoneNumber'];
-                                            $Company_FAX = $_REQUEST['Company_FAX'];
-                                            $Company_mailAdress = $_REQUEST['Company_mailAdress'];
-
-
-                                            if (isset($_REQUEST['engineer'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $Responsible_Title = 1;
-                                            }
-                                            if (isset($_REQUEST['technic_teacher'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $Responsible_Title = 2;
-                                            }
-                                            if (isset($_REQUEST['DR'])) { // checkbox seçilmişse "on" değeri gönderiliyor
-                                                $Responsible_Title = 3;
-                                            }
-
-
-                                            $st_teacher_id = $_SESSION["st_Teacher_ID"];
-
-                                            $Company_ID = substr(md5($Company_Name), 0, 5);
-                                            //Company_ID MD5'in ilk 5 hanesi
-
-                                            $Internship_ID = $student_id_No."_".$st_IS_info."_I";
-
-                                            $sql_query = "
-                                              INSERT INTO internship_application (st_id, Company_ID, Internship_ID, starting_date, finish_date, Company_Name,
-                                                                                  working_day, Activity_Field, Company_adress, Company_city,
-                                                                                  Company_town, Company_postCode, Company_PhoneNumber, Company_FAX, Company_mailAdress,
-                                                                                  Responsible_Title, health_care, GSS, yearOld_25, law_3308, application_complete, IBAN_No, st_Teacher_ID)
-                                               VALUES ('$student_id_No', '$Company_ID', '$Internship_ID', '$start_date', '2022-12-21', '$Company_Name',
-                                                       '$work_day','$Activity_Field', '$Company_adress', '$Company_city', '$Company_town', '$Company_postCode',
-                                                       '$Company_PhoneNumber', '$Company_FAX', '$Company_mailAdress', '$Responsible_Title', '$health_care', '$GSS', '$yearOld_25','0', '0','$IBAN_No', '0');";
-
-
-
-                                            if (!$baglanti -> query($sql_query) ) {
-                                                echo("Error description: " . $baglanti -> error);
-                                            }
-                                            $baglanti -> close();
-
-                                        }
-                                        ?>
-
-                                    </form>
-                                </div>
+                <div class="col-lg-12">
+                    <div class="card car-transparent">
+                        <div class="card-body p-0">
+                            <div class="profile-image position-relative">
+                                <img src="../assets/images/page-img/profile.png" class="img-fluid rounded w-100" alt="profile-image">
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-sm-0 px-3">
+                <div class="col-lg-4 card-profile">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="profile-img position-relative">
+                                    <img src="../assets/images/user/1.jpg" class="img-fluid rounded avatar-110" alt="profile-image">
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="mb-1"><?php     echo $admin_mail; ?></h4>
+                                </div>
+                            </div>
+                            <p>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 card-profile">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <ul class="d-flex nav nav-pills mb-3 text-center profile-tab" id="profile-pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active show" data-toggle="pill" href="#profile1" role="tab" aria-selected="false">Öğrenciler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#profile2" role="tab" aria-selected="false">Öğretmenler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="pill" href="#profile3" role="tab" aria-selected="false">Öğrenci Notları</a>
+                                </li>
+
+
+                            </ul>
+                            <div class="profile-content tab-content">
+
+
+                                <div id="profile1" class="tab-pane fade active show">
+                                    <a href="user-add_s.php">Öğrenci Ekle</a>
+
+                                    <div class="table-responsive">
+                                        <div class="row justify-content-between">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div id="user_list_datatable_info" class="dataTables_filter">
+                                                    <form class="mr-3 position-relative">
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+
+                                            </div>
+                                        </div>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>ID</th>
+                                                <th>Adı</th>
+                                                <th>Soyadı</th>
+                                                <th>TC Kimlik Numarası</th>
+                                                <th>Telefon Numarası</th>
+                                                <th>Mail</th>
+                                                <th>Sınıf</th>
+                                                <th>Adres</th>
+                                                <th>İl</th>
+                                                <th>İlçe</th>
+                                                <th>Posta Kodu</th>
+                                                <th>Uyruk</th>
+                                                <th>Danışman Öğretmen</th>
+                                                <th>İşlem</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                            <tr>
+                                                <?php
+                                                include('../vt.php');
+                                                $query = "SELECT * FROM students";
+                                                if ($result = $baglanti->query($query)) {
+                                                    /* fetch associative array */
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        $ID = $row["st_id"];
+                                                        $name = $row["st_name"];
+                                                        $lastName = $row["st_lastName"];
+                                                        $TC_No = $row["st_TC_No"];
+                                                        $Phone = $row["st_PhoneNumber"];
+                                                        $Mail = $row["st_mailAdress"];
+                                                        $Class = $row["st_class"];
+                                                        $Adr = $row["st_adress"];
+                                                        $City = $row["st_city"];
+                                                        $Town = $row["st_town"];
+                                                        $postCode = $row["st_postCode"];
+                                                        $citizen = $row["st_citizenship"];
+                                                        $Teacher = $row["st_st_TeacherID"];
+                                                        echo '<tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$lastName.'</td> 
+                                            <td>'.$TC_No.'</td> 
+                                            <td>'.$Phone .'</td>
+                                            <td>'.$Mail .'</td>
+                                            <td>'.$Class .'</td>
+                                            <td>'.$Adr .'</td>
+                                            <td>'.$City .'</td>
+                                            <td>'.$Town .'</td>
+                                            <td>'.$postCode .'</td>
+                                            <td>'.$citizen .'</td>
+                                            <td>'.$Teacher .'</td>       
+ 
+                                        </tr>';
+                                                    }
+                                                    /* free result set */
+                                                    $result->free();
+                                                }
+                                                ?>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="profile2" class="tab-pane fade">
+                                    <a href="user-add_t.php">Öğretmen Ekle</a>
+
+                                    <div class="table-responsive">
+                                        <div class="row justify-content-between">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div id="user_list_datatable_info" class="dataTables_filter">
+                                                    <form class="mr-3 position-relative">
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+
+                                            </div>
+                                        </div>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                               aria-describedby="user-list-page-info">
+                                            <thead>
+                                            <tr class="ligth">
+                                                <th>ID</th>
+                                                <th>Numara</th>
+                                                <th>Adı</th>
+                                                <th>Soyadı</th>
+                                                <th>Komisyon Üyeliği</th>
+                                                <th>Mail</th>
+                                                <th>İşlem</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                            <tr>
+                                                <?php
+                                                include('../vt.php');
+                                                $query = "SELECT * FROM teachers_informations";
+                                                if ($result = $baglanti->query($query)) {
+                                                    /* fetch associative array */
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        $ID = $row["Teacher_ID"];
+                                                        $name = $row["Teacher_Number"];
+                                                        $lastName = $row["Teacher_Name"];
+                                                        $TC_No = $row["Teacher_SurName"];
+                                                        $Phone = $row["commission_memberShip"];
+                                                        $Mail = $row["Teacher_mail"];
+
+                                                        echo '<tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$lastName.'</td> 
+                                            <td>'.$TC_No.'</td> 
+                                            <td>'.$Phone .'</td>
+                                            <td>'.$Mail .'</td>
+                                            <td>'."İşlem" .'</td>
+
+                                            
+                                                
+ 
+                                        </tr>';
+                                                    }
+                                                    /* free result set */
+                                                    $result->free();
+                                                }
+                                                ?>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="profile3" class="tab-pane fade">
+                                    <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                                           aria-describedby="user-list-page-info">
+                                        <thead>
+                                        <tr class="ligth">
+                                            <th>Numarası</th>
+                                            <th>Öğrenci Adı</th>
+                                            <th>Dönem</th>
+                                            <th>Firma</th>
+                                            <th>Notu</th>
+
+
+                                        </tr>
+                                        </thead>
+
+                                        <?php
+                                        include('../vt.php');
+                                        $teacher_id_no = $_SESSION["Teacher_ID"];
+                                        $query = "SELECT * FROM student_grades";
+                                        if ($result = $baglanti->query($query)) {
+                                            /* fetch associative array */
+                                            while ($row = $result->fetch_assoc()) {
+                                                $ID = $row["st_id"];
+                                                $name = $row["st_name"];
+                                                $internship_id = $row["Internship_ID"];
+                                                $company_name_g = $row["company_name"];
+                                                $st_grade = $row["st_grade"];
+
+
+                                                echo '
+                                            <tr> 
+                                            <td>'.$ID.'</td> 
+                                            <td>'.$name.'</td> 
+                                            <td>'.$internship_id.'</td>
+                                            <td>'.$company_name_g.'</td> 
+                                            <td>'.$st_grade.'</td>   
+ 
+                                        </tr>';
+                                            }
+                                            /* free result set */
+                                            $result->free();
+                                        }
+
+                                        ?>
+
+                                        </td>
+                                        </tr>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
