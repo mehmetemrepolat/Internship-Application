@@ -3,7 +3,7 @@
 //mysql veri tabanına bağlanıyoruz
 //sizde kendi veri tabanına göre bilgilerinizi güncelleyin
 //3. parametre password bende boş sizde kendi kullanıcı bilgilerinize göre düzenleyin
-$baglanti= new mysqli("yazgelintern01.mysql.database.azure.com:3306","emre01","123-+asd!!
+$baglanti= new mysqli("yazgelintern01.mysql.database.azure.com","emre01","123-+asd!!
 ","stajdurumlari");
 if($baglanti->connect_error)
 {
